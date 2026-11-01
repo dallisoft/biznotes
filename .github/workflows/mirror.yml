@@ -1,0 +1,44 @@
+# 공개 미러 — 비공개 작업 저장소(dalli/biznotes)의 main·태그를 공개 저장소(dallisoft/biznotes)로 민다.
+# 미러에도 이 파일이 실리지만 저장소 이름 조건으로 원본에서만 돈다.
+# 인증은 미러 저장소의 쓰기 권한 배포 키(시크릿 MIRROR_DEPLOY_KEY) 하나다.
+# 강제 push는 하지 않는다 — 원본 main을 다시 쓰면 이 잡이 실패해 사람이 판단하게 한다.
+name: mirror
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    if: github.repository == 'dalli/biznotes'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: main·태그를 미러로 push
+        env:
+          MIRROR_DEPLOY_KEY: ${{ secrets.MIRROR_DEPLOY_KEY }}
+          MIRROR_URL: git@github.com:dallisoft/biznotes.git
+        run: |
+          set -euo pipefail
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$MIRROR_DEPLOY_KEY" > ~/.ssh/mirror_key
+          chmod 600 ~/.ssh/mirror_key
+          # GitHub가 공개한 호스트 키(api.github.com/meta의 ssh_keys)로 고정한다 — ssh-keyscan을 믿지 않는다
+          echo 'github.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl' > ~/.ssh/known_hosts
+          export GIT_SSH_COMMAND="ssh -i ~/.ssh/mirror_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes"
+          git remote add mirror "$MIRROR_URL"
+          git push mirror refs/remotes/origin/main:refs/heads/main
+          git push mirror --tags

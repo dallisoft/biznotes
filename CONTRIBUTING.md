@@ -43,6 +43,7 @@ make seed
 - 기능 하나 = 커밋 하나, 커밋마다 `make ci` 초록. 메시지는 `type(scope): 요약` 형식(예: `fix(ingestion): …`).
 - PR 템플릿의 세 칸(요약·테스트·마이그레이션 동반)을 채워 주세요.
 - 기여한 코드는 이 저장소의 라이선스([Apache-2.0](LICENSE))로 배포되는 데 동의한 것으로 봅니다.
+- 공개 저장소 `dallisoft/biznotes`는 유지보수자의 작업 저장소 `main`을 자동으로 따라가는 미러입니다(`.github/workflows/mirror.yml`). PR은 공개 저장소에 열어 주세요 — 유지보수자가 작업 저장소에 옮겨 넣으면 미러에 반영되고, 공개 저장소에서 직접 병합하지는 않습니다.
 
 ---
 
@@ -80,3 +81,4 @@ make seed
 - One change per commit, each with `make ci` green. Messages follow `type(scope): summary`.
 - Fill in the three sections of the pull request template (summary, testing, migrations/contracts).
 - By contributing you agree that your contribution is licensed under the repository's license ([Apache-2.0](LICENSE)).
+- The public repository `dallisoft/biznotes` is a mirror that automatically follows `main` of the maintainers' working repository (`.github/workflows/mirror.yml`). Open pull requests on the public repository; maintainers apply them upstream and the mirror picks them up, so they are not merged on the public repository directly.
