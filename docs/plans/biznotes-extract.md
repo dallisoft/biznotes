@@ -3,7 +3,7 @@
 - 전제(owner, 2026-11-01): **agents-core와 rapid-notes는 그대로 개발을 이어간다.** 아카이브·rename·이슈 이관 없음. biznotes는 두 저장소의 **핵심만 가져온 별개의 가벼운 오픈소스 모노리포**다.
 - 상태: **결정 완료(2026-11-01, §3)**. **Phase 1 완료(2026-11-01, 브랜치 `phase-1-baseline`)**, **Phase 2a 완료(브랜치 `phase-2a-slim`)**, **Phase 2b 완료(2026-11-01, 브랜치 `phase-2b-storage`)**, **Phase 3 완료(2026-11-01, 브랜치 `phase-3-hygiene`, PR #4)**, **Phase 4 완료(2026-11-01, `v0.1.0` 공개)** — 구현 기록은 §5 각 Phase 끝. Phase 1~4의 브랜치·PR(#1~#5)은 비공개 `dalli/biznotes-history`에 있다.
 - 기준 커밋: agents-core `v0.31.0`(`5671bfa`, main) · rapid-notes `origin/dev` `415824f4`(v0.8.0). 2026-11-01 실측.
-- 저장소: **`https://github.com/dalli/biznotes`**(공개, 2026-11-01 — orphan 커밋 하나에서 시작). 작업 이력은 `dalli/biznotes-history`(비공개, 옛 `dalli/biznotes`의 이름을 바꾼 것).
+- 저장소(owner, 2026-11-02): 공개 저장소는 **`https://github.com/dallisoft/biznotes`** — 작업 저장소 **`dalli/biznotes`**(비공개)의 `main`·태그를 따라가는 미러다(`.github/workflows/mirror.yml`). 작업 이력은 `dalli/biznotes-history`(비공개, 옛 `dalli/biznotes`의 이름을 바꾼 것).
 - 제품 이름(owner, 2026-11-01): **biznotes**. Phase 1의 작업 이름 freenotes는 모두 biznotes로 바꿨다. 원본에서 온 `rapid-notes` 이름은 Phase 4 리브랜딩에서 biznotes로 바꾼다.
 
 ## 0. 한 줄 요약
@@ -421,7 +421,7 @@ biznotes/
 |---|---|
 | 공개 저장소 CI(`main` push, 캐시 없음) | 6잡 초록. backend 16분(api 1,577 passed·커버리지 75.70%, 코어 6,659 passed·1 skipped — Linux 러너라 샌드박스 격리 시험이 새 모듈 경로로 돈다), frontend 9.5분, contracts 1분(gitleaks 포함), docker api 2분·web 4분·skill-sandbox 1.5분 |
 | 공개 직전 미러 clone 검사 | 뿌리 커밋은 `efa8022` 하나(나머지는 Dependabot 브랜치·PR 참조). gitleaks git 모드(`--all`, `.gitleaks.toml`) 0건. 내부 참조 grep 일치는 이 문서의 검색어·제거 장부 서술뿐 |
-| 릴리스 | <https://github.com/dalli/biznotes/releases/tag/v0.1.0> (한/영 노트) |
+| 릴리스 | `dalli/biznotes`의 `v0.1.0`(한/영 노트) — 공개 미러 전환 뒤에는 <https://github.com/dallisoft/biznotes/releases/tag/v0.1.0> |
 | 브랜치 보호(`main`) | PR 필수(승인 0명 — 1인 유지보수), 필수 체크 6개(backend·frontend·contracts·docker 3), 관리자에게도 적용, 강제 push·삭제 금지. 최신 브랜치 요구(strict)는 끔 |
 | Private vulnerability reporting | 켜짐(SECURITY.md가 안내하는 경로) |
 
@@ -432,6 +432,15 @@ biznotes/
 - 이 저장소에서 커밋할 때 작성자 이메일이 공개된다 — 로컬 `user.email`을 noreply 주소로 둘지.
 - 기존 개발 볼륨(`biznotes_pgdata` 등)은 `rapidnotes` 역할이다. `make clean` 뒤 `make up && make seed`로 새로 띄운다(데이터 삭제).
 - 테스트의 예시 MCP 서버 이름 `archhub`(약 15파일)는 그대로다 — 엔드포인트는 `example.com`·`https://x`.
+
+**공개 미러로 전환(owner, 2026-11-02)**
+
+`dalli/biznotes`는 공개한 지 반나절 만에 다시 비공개로 돌렸다(그동안 fork·star·watcher 0). 공개 저장소는 `dallisoft/biznotes`이고, 작업 저장소의 `main`·태그를 그대로 따라가는 미러다.
+- 동기화: 작업 저장소의 `mirror` 워크플로가 `main` push·`v*` 태그 push 때 미러로 민다. 인증은 미러의 쓰기 권한 배포 키(작업 저장소 시크릿 `MIRROR_DEPLOY_KEY`)이고, 강제 push는 하지 않는다. 미러에서는 저장소 이름 조건으로 돌지 않는다. 미러의 `ci`는 공개 저장소에서 그대로 돈다.
+- 공개 저장소를 가리키는 주소(README clone, SECURITY.md·이슈 템플릿의 취약점 신고 링크)와 MCP `_meta` 키 이름공간(`io.github.dallisoft.biznotes/`)을 바꿨다. 외부 PR은 공개 저장소에 받고 유지보수자가 작업 저장소로 옮긴다(CONTRIBUTING).
+- 브랜치 보호: 무료 플랜의 비공개 저장소에는 브랜치 보호가 없어 작업 저장소의 「PR 필수·CI 필수」는 강제되지 않는다(관례로 지킨다. 강제하려면 GitHub Pro). 미러 `main`은 강제 push·삭제만 막는다 — PR·체크를 요구하면 배포 키의 push가 거부된다. Private vulnerability reporting은 미러에서 켠다.
+- PR #13을 병합한 커밋 `ce1f3b9`의 커미터는 GitHub 계정 이메일이다(웹 병합이 계정 이메일을 쓴다). owner가 그대로 미러하기로 했다.
+- 미러에도 `dependabot.yml`이 실려 Dependabot이 미러에서도 PR을 열 수 있다. 의존성 갱신은 작업 저장소의 PR로 받는다.
 
 ### Phase 5 — 이후 운영 규칙 (작업 없음)
 
