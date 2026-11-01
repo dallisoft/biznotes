@@ -1,9 +1,9 @@
 # biznotes 추출 계획 — agents-core·rapid-notes의 핵심으로 만드는 가벼운 오픈소스 모노리포
 
 - 전제(owner, 2026-11-01): **agents-core와 rapid-notes는 그대로 개발을 이어간다.** 아카이브·rename·이슈 이관 없음. biznotes는 두 저장소의 **핵심만 가져온 별개의 가벼운 오픈소스 모노리포**다.
-- 상태: **결정 완료(2026-11-01, §3)**. **Phase 1 완료(2026-11-01, 브랜치 `phase-1-baseline`)**, **Phase 2a 완료(브랜치 `phase-2a-slim`)**, **Phase 2b 완료(2026-11-01, 브랜치 `phase-2b-storage`)**, **Phase 3 완료(2026-11-01, 브랜치 `phase-3-hygiene`, PR #4)**, **Phase 4 진행 중(브랜치 `phase-4-rebrand` — 1·2·3(버전)·4(검사) 완료, 태그·이력 단일화·공개는 owner 확인 대기)** — 구현 기록은 §5 각 Phase 끝.
+- 상태: **결정 완료(2026-11-01, §3)**. **Phase 1 완료(2026-11-01, 브랜치 `phase-1-baseline`)**, **Phase 2a 완료(브랜치 `phase-2a-slim`)**, **Phase 2b 완료(2026-11-01, 브랜치 `phase-2b-storage`)**, **Phase 3 완료(2026-11-01, 브랜치 `phase-3-hygiene`, PR #4)**, **Phase 4 완료(2026-11-01, `v0.1.0` 공개)** — 구현 기록은 §5 각 Phase 끝. Phase 1~4의 브랜치·PR(#1~#5)은 비공개 `dalli/biznotes-history`에 있다.
 - 기준 커밋: agents-core `v0.31.0`(`5671bfa`, main) · rapid-notes `origin/dev` `415824f4`(v0.8.0). 2026-11-01 실측.
-- 저장소(owner, 2026-11-01): **`https://github.com/dalli/biznotes`**(비공개). 공개 전환은 Phase 4에서 한다.
+- 저장소: **`https://github.com/dalli/biznotes`**(공개, 2026-11-01 — orphan 커밋 하나에서 시작). 작업 이력은 `dalli/biznotes-history`(비공개, 옛 `dalli/biznotes`의 이름을 바꾼 것).
 - 제품 이름(owner, 2026-11-01): **biznotes**. Phase 1의 작업 이름 freenotes는 모두 biznotes로 바꿨다. 원본에서 온 `rapid-notes` 이름은 Phase 4 리브랜딩에서 biznotes로 바꾼다.
 
 ## 0. 한 줄 요약
@@ -379,7 +379,7 @@ biznotes/
 
 **수락 기준**: 공개 저장소 CI 초록, `v0.1.0` 릴리스, `git grep -il "rapid.notes\|rapidnotes\|agents_core\|agents-core\|qdrant\|minio"` 결과가 `ORIGIN.md`·`NOTICE`·S3 extra 문서뿐.
 
-#### Phase 4 구현 기록 (2026-11-01, 브랜치 `phase-4-rebrand` — 공개 전까지)
+#### Phase 4 구현 기록 (2026-11-01, 브랜치 `phase-4-rebrand` → 공개 저장소 orphan 커밋 `efa8022`)
 
 `phase-3-hygiene`(PR #4) 위에 쌓았다. 커밋은 코어 패키지 리네임 → 제품 이름 → 버전 0.1.0 → SearXNG → 업로드 안내 → 낡은 저장소 언급 → 스크린샷 → 이 기록 순이다.
 
@@ -407,18 +407,31 @@ biznotes/
 
 **미검증**
 - 샌드박스에서 스크립트 스킬을 실제로 실행하는 왕복(태스크 등록까지만 확인). Linux 격리 시험은 GitHub Actions backend 잡에서 돈다.
-- GitHub Actions(이 브랜치는 아직 push하지 않았다), `e2e.yml`.
+- `e2e.yml` 수동 실행.
+- 이력 저장소의 PR #5 CI는 6잡 모두 checkout에서 실패했다 — 실행 도중 저장소 이름을 바꿔 옛 이름을 찾지 못했다. 같은 트리를 공개 저장소 `main`에서 다시 돌려 초록을 확인했다(아래).
 
-**남은 단계(owner 확인 필요)**
-- 3. 태그·릴리스 `v0.1.0`.
-- 4. 이력 단일화: 최종 트리로 orphan 커밋 1개를 만든다.
-- 5. 공개 전환, `main` 브랜치 보호(CI 필수·PR 필수), 공개 직후 Private vulnerability reporting.
-- 6. 원본 README 링크 — 원본 저장소 변경은 비목표라 owner가 한다.
-- `NOTICE` 저작권자(「The biznotes Authors」)는 owner 판단이다.
+**공개 절차(owner 결정·승인 2026-11-01)**
+- **같은 저장소를 공개로 돌리지 않았다.** GitHub는 PR마다 `refs/pull/N/head`를 지울 수 없게 남기고, PR #1의 head가 첫 스냅샷 커밋을 가리킨다. `main`만 orphan으로 바꿔 공개하면 그 참조로 옛 이력을 받을 수 있다. 그래서 계획(5)의 「같은 저장소 공개 전환」 대신 다음 순서로 했다.
+  1. 옛 `dalli/biznotes`를 `dalli/biznotes-history`로 이름을 바꿨다(비공개 — 전체 이력·브랜치·PR #1~#5·CI 기록 보존, PR #4·#5는 안내 댓글을 달고 닫음). 시크릿·웹훅·배포 키는 없었다.
+  2. 이 문서의 개인·회사 식별자를 `<개인 계정>`·`<회사>`로 가렸다(문서는 공개 트리에 둔다).
+  3. 새 `dalli/biznotes`(비공개)를 만들고 `phase-4-rebrand` 최종 트리로 orphan 커밋 `efa8022` 하나를 push했다. 작성자·태거는 GitHub noreply 주소다(공개 위생 기준 「개인 이메일 0건」).
+  4. `main` push CI 6잡 초록 → 태그 `v0.1.0`(주석 태그)·GitHub 릴리스 → 공개 전환 → `main` 브랜치 보호 → Private vulnerability reporting.
 
-**공개 절차 결정(owner, 2026-11-01)**
-- **같은 저장소를 공개로 돌리지 않는다.** GitHub는 PR마다 `refs/pull/N/head`를 지울 수 없게 남기고, PR #1의 head가 첫 스냅샷 커밋을 가리킨다. `main`만 orphan으로 바꿔 공개하면 그 참조로 옛 이력을 받을 수 있다. 그래서 지금 저장소를 `dalli/biznotes-history`(비공개 — 전체 이력·PR·CI 기록 보존)로 이름을 바꾸고, 새 `dalli/biznotes`에 orphan 커밋만 올려 CI 초록을 확인한 뒤 `v0.1.0` 태그·릴리스, 공개 전환, 브랜치 보호 순으로 한다.
-- 이 문서는 공개 트리에 둔다. 검색어로 적었던 개인·회사 식별자만 `<개인 계정>`·`<회사>`로 가렸다.
+| 항목 | 결과 |
+|---|---|
+| 공개 저장소 CI(`main` push, 캐시 없음) | 6잡 초록. backend 16분(api 1,577 passed·커버리지 75.70%, 코어 6,659 passed·1 skipped — Linux 러너라 샌드박스 격리 시험이 새 모듈 경로로 돈다), frontend 9.5분, contracts 1분(gitleaks 포함), docker api 2분·web 4분·skill-sandbox 1.5분 |
+| 공개 직전 미러 clone 검사 | 뿌리 커밋은 `efa8022` 하나(나머지는 Dependabot 브랜치·PR 참조). gitleaks git 모드(`--all`, `.gitleaks.toml`) 0건. 내부 참조 grep 일치는 이 문서의 검색어·제거 장부 서술뿐 |
+| 릴리스 | <https://github.com/dalli/biznotes/releases/tag/v0.1.0> (한/영 노트) |
+| 브랜치 보호(`main`) | PR 필수(승인 0명 — 1인 유지보수), 필수 체크 6개(backend·frontend·contracts·docker 3), 관리자에게도 적용, 강제 push·삭제 금지. 최신 브랜치 요구(strict)는 끔 |
+| Private vulnerability reporting | 켜짐(SECURITY.md가 안내하는 경로) |
+
+**남은 owner 작업**
+- 원본 README 링크(6) — 원본 저장소 변경은 비목표라 owner가 한다.
+- `NOTICE` 저작권자(「The biznotes Authors」)를 개인·법인 이름으로 바꿀지.
+- Dependabot이 공개 직후 PR 12개를 열었다(next 16·mcp 2·react-resizable-panels 4·jsdom 30·`@vitest/coverage-v8` 5·pytest-randomly 5 같은 주 버전 포함). 주 버전은 따로 검토한다.
+- 이 저장소에서 커밋할 때 작성자 이메일이 공개된다 — 로컬 `user.email`을 noreply 주소로 둘지.
+- 기존 개발 볼륨(`biznotes_pgdata` 등)은 `rapidnotes` 역할이다. `make clean` 뒤 `make up && make seed`로 새로 띄운다(데이터 삭제).
+- 테스트의 예시 MCP 서버 이름 `archhub`(약 15파일)는 그대로다 — 엔드포인트는 `example.com`·`https://x`.
 
 ### Phase 5 — 이후 운영 규칙 (작업 없음)
 
