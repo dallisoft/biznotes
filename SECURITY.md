@@ -4,7 +4,7 @@
 
 ### 신고 방법
 
-취약점은 공개 이슈에 쓰지 말고 GitHub의 비공개 신고로 알려 주세요: 저장소 **Security › Report a vulnerability** ([바로가기](https://github.com/dalli/biznotes/security/advisories/new)).
+취약점은 공개 이슈에 쓰지 말고 GitHub의 비공개 신고로 알려 주세요: 저장소 **Security › Report a vulnerability** ([바로가기](https://github.com/dallisoft/biznotes/security/advisories/new)).
 
 다음을 적어 주시면 빨리 확인할 수 있습니다.
 
@@ -36,7 +36,7 @@
 
 ### Reporting
 
-Please do not open public issues for vulnerabilities. Report them privately through GitHub: **Security › Report a vulnerability** on this repository ([direct link](https://github.com/dalli/biznotes/security/advisories/new)). Include the affected version or commit and configuration, reproduction steps, and the impact. This is a small project and cannot promise response times, but every report will be answered once reviewed, and a fix and disclosure timeline agreed with you. Please keep details private until a fix is released.
+Please do not open public issues for vulnerabilities. Report them privately through GitHub: **Security › Report a vulnerability** on this repository ([direct link](https://github.com/dallisoft/biznotes/security/advisories/new)). Include the affected version or commit and configuration, reproduction steps, and the impact. This is a small project and cannot promise response times, but every report will be answered once reviewed, and a fix and disclosure timeline agreed with you. Please keep details private until a fix is released.
 
 ### Supported versions
 

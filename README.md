@@ -17,7 +17,7 @@ biznotes는 두 비공개 저장소의 핵심을 떠내 만든 독립 저장소�
 필요한 것: Docker(Compose v2 포함)와 `make`. 처음 소스를 색인할 때 임베딩 모델(약 240 MB)을 내려받습니다.
 
 ```bash
-git clone https://github.com/dalli/biznotes.git
+git clone https://github.com/dallisoft/biznotes.git
 cd biznotes
 make up     # 이미지 빌드 + 기동. api가 시작하면서 DB 마이그레이션을 적용한다
 make seed   # 관리자·데모 계정, 샘플 에이전트·스킬 (여러 번 돌려도 같다)
@@ -97,7 +97,7 @@ biznotes is an independent repository built from the core of two private reposit
 You need Docker (with Compose v2) and `make`. The first ingestion downloads the embedding models (about 240 MB).
 
 ```bash
-git clone https://github.com/dalli/biznotes.git
+git clone https://github.com/dallisoft/biznotes.git
 cd biznotes
 make up     # build images and start; the api applies DB migrations on startup
 make seed   # admin and demo accounts, sample agents and skills (idempotent)

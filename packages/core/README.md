@@ -297,8 +297,8 @@ advisory lock으로 직렬화된다. 늦게 온 쪽은 최대 5분(`INDEX_LOCK_T
 
 | 키 | 값 | 보내는 서버 |
 | --- | --- | --- |
-| `MCP_META_RUN_ID` (`io.github.dalli.biznotes/run_id`) | run 식별자 | 모든 서버 |
-| `MCP_META_USER_ID` (`io.github.dalli.biznotes/user_id`) | run 실행 사용자 | **stdio만**. 시스템 실행이면 없음 |
+| `MCP_META_RUN_ID` (`io.github.dallisoft.biznotes/run_id`) | run 식별자 | 모든 서버 |
+| `MCP_META_USER_ID` (`io.github.dallisoft.biznotes/user_id`) | run 실행 사용자 | **stdio만**. 시스템 실행이면 없음 |
 
 사용자별 데이터를 돌려주는 서버는 인자의 사용자 id 대신 `_meta`의 사용자로 조회한다(FastMCP라면
 `ctx.request_context.meta`의 `model_extra.get(MCP_META_USER_ID)`). 사용자 키가 없을 때 거부할지는 서버가 정한다.

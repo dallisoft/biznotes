@@ -122,8 +122,8 @@ def _expected(ctx: RunContext) -> dict[str, str]:
 
 
 def test_keys_are_reverse_dns_namespaced() -> None:
-    assert MCP_META_RUN_ID == "io.github.dalli.biznotes/run_id"
-    assert MCP_META_USER_ID == "io.github.dalli.biznotes/user_id"
+    assert MCP_META_RUN_ID == "io.github.dallisoft.biznotes/run_id"
+    assert MCP_META_USER_ID == "io.github.dallisoft.biznotes/user_id"
 
 
 @pytest.mark.parametrize("transport", ["stdio", "sse", "streamable_http"])

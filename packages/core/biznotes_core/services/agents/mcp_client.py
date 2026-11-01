@@ -43,10 +43,10 @@ if TYPE_CHECKING:
     from biznotes_core.services.agents.context import RunContext
 
 # `tools/call` `_meta` 키 — MCP `<prefix>/<name>` 이름공간. 접두어는 스펙 권고대로 reverse-DNS
-# (저장소 github.com/dalli/biznotes)다. 서버는 이 상수의 문자열로 읽는다. 공개 계약이라 바꾸면
+# (저장소 github.com/dallisoft/biznotes)다. 서버는 이 상수의 문자열로 읽는다. 공개 계약이라 바꾸면
 # 이 키를 읽는 MCP 서버도 함께 바꿔야 한다
-MCP_META_RUN_ID = "io.github.dalli.biznotes/run_id"
-MCP_META_USER_ID = "io.github.dalli.biznotes/user_id"
+MCP_META_RUN_ID = "io.github.dallisoft.biznotes/run_id"
+MCP_META_USER_ID = "io.github.dallisoft.biznotes/user_id"
 
 
 class MCPClientError(Exception):

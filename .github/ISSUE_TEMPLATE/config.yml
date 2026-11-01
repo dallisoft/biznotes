@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: 보안 취약점 / Security vulnerability
-    url: https://github.com/dalli/biznotes/security/advisories/new
+    url: https://github.com/dallisoft/biznotes/security/advisories/new
     about: 비공개로 알려 주세요 / Report privately (see SECURITY.md)
