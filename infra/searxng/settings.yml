@@ -1,0 +1,11 @@
+use_default_settings: true
+
+server:
+  # 실제 값은 compose가 SEARXNG_SECRET 환경 변수로 준다(이 자리표시 값을 덮는다)
+  secret_key: "set-by-SEARXNG_SECRET"
+  limiter: false
+
+search:
+  formats:
+    - html
+    - json

@@ -1,0 +1,27 @@
+# 개발 오버레이: 포트 노출 + 핫리로드
+services:
+  postgres:
+    # 호스트 5432는 로컬 PostgreSQL과 충돌 가능, 5433은 다른 프로젝트 스택과 충돌 가능 → 25433으로 노출
+    ports: ["25433:5432"]
+
+  valkey:
+    # 루프백에만 연다(#259 D3) — dev 샌드박스 워커를 상시 띄우므로, 같은 LAN에서 무인증 Valkey로
+    # 샌드박스 큐에 작업을 넣는 경로를 닫는다. 호스트의 valkey-cli·redis-cli·테스트는 그대로 쓴다.
+    ports: ["127.0.0.1:26379:6379"]
+
+  searxng:
+    ports: ["28080:8080"]
+
+  api:
+    command: sh scripts/start.sh uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports: ["28000:8000"]
+    volumes:
+      - ../apps/api/app:/app/app
+      - ../apps/api/alembic:/app/alembic
+
+  worker:
+    volumes:
+      - ../apps/api/app:/app/app
+
+  web:
+    ports: ["23000:3000"]

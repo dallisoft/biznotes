@@ -1,0 +1,43 @@
+biznotes
+Copyright 2026 The biznotes Authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+biznotes started as a snapshot of two private repositories (agents-core and
+rapid-notes) by the same authors. See ORIGIN.md.
+
+-------------------------------------------------------------------------------
+Third-party material included in this repository
+-------------------------------------------------------------------------------
+
+Model Context Protocol schemas
+  Files:   packages/core/tests/fixtures/mcp/schemas/*.json
+  Source:  https://github.com/modelcontextprotocol/modelcontextprotocol
+           (commit aa8ce049f089f92618340190d4ece141f663310d, schema/<revision>/schema.json)
+  License: Apache-2.0, with contributions not yet relicensed remaining under MIT.
+           Copyright (c) 2024-2025 Model Context Protocol a Series of LF Projects, LLC.
+           The upstream LICENSE is copied unmodified to
+           packages/core/tests/fixtures/mcp/schemas/LICENSE.
+  Use:     Test fixtures only. Not shipped in any container image.
+
+-------------------------------------------------------------------------------
+Third-party software installed when building the container images
+-------------------------------------------------------------------------------
+
+The Dockerfiles in this repository (apps/api, apps/web,
+packages/core/docker/skill-sandbox.Dockerfile) download and install
+third-party software at build time. That software is not part of this
+repository and is distributed under its own license terms, including:
+
+  - Python packages pinned in apps/api/requirements.docker.txt and
+    packages/core/docker/requirements.sandbox*.txt (from uv.lock)
+  - npm packages pinned in pnpm-lock.yaml
+  - Debian packages from the base images, including fonts-nanum
+    (SIL Open Font License 1.1) in the skill sandbox image
+  - Node.js (MIT) in the web and skill sandbox images
+
+Notable non-permissive licenses among the runtime dependencies (unmodified,
+used as libraries): certifi, orjson, tqdm, dompurify (MPL-2.0, or a choice
+including it), tld (MPL-1.1 / GPL-2.0 / LGPL-2.1 tri-license),
+@img/sharp-libvips-* (LGPL-3.0-or-later, dynamically linked by sharp, used by
+Next.js), caniuse-lite (CC-BY-4.0 data).

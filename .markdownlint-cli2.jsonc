@@ -1,0 +1,8 @@
+{
+  // 한국어 장문 문서에 맞지 않는 규칙 비활성화
+  "config": {
+    "MD013": false, // line-length: 한국어 산문/표에 80자 제한 부적합
+    "MD040": false, // fenced-code-language: ASCII 다이어그램/ERD 펜스 허용
+    "MD060": false  // table-column-style: compact 파이프 스타일 강제 해제
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "biznotes",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "build:web": "pnpm --filter web build",
+    "lint:web": "pnpm --filter web lint",
+    "typecheck:web": "pnpm --filter web typecheck",
+    "gen:types": "pnpm --filter @biznotes/shared-types generate"
+  },
+  "packageManager": "pnpm@10.14.0"
+}

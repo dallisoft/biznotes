@@ -1,0 +1,19 @@
+{
+  "name": "@biznotes/shared-types",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "private": true,
+  "types": "./src/api.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/api.d.ts"
+    }
+  },
+  "scripts": {
+    "export-schema": "cd ../../apps/api && uv run python -m scripts.export_openapi ../../packages/shared-types/openapi.json",
+    "generate": "pnpm export-schema && openapi-typescript ./openapi.json -o ./src/api.d.ts"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.5.0"
+  }
+}

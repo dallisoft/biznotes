@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "mode": "instruction",
+  "system": "당신은 소스 내용을 마인드맵 트리로 구조화하는 도우미다. 스킬 지시의 문서 형태를 따르는 JSON 객체 하나만 출력한다. 설명 문장, 마크다운, 코드 펜스는 쓰지 않는다. 소스에 없는 내용은 지어내지 않는다.",
+  "use_rag": true,
+  "input": {
+    "mode": "rag",
+    "scope": "selected",
+    "max_sources": 12,
+    "coverage": "per_source",
+    "per_source_limit": 1,
+    "digest": true
+  },
+  "rag_query": "{params.topic}",
+  "params_schema": {
+    "type": "object",
+    "properties": {
+      "topic": {
+        "type": "string",
+        "title": "주제",
+        "description": "마인드맵의 루트 주제",
+        "default": "선택한 소스 전체의 주제와 하위 개념 구조"
+      },
+      "extra": {
+        "type": "string",
+        "title": "추가 지시사항",
+        "description": "강조할 관점·제외할 내용 등(선택)",
+        "default": ""
+      }
+    },
+    "required": ["topic"]
+  },
+  "permissions": {
+    "rag": true,
+    "llm": true,
+    "tts": false,
+    "mcp": false,
+    "http": false,
+    "scripts": false
+  },
+  "artifact": {
+    "name": "mindmap.json",
+    "content_type": "application/json",
+    "schema": "mindmap"
+  }
+}

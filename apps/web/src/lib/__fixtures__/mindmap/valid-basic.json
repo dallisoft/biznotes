@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "root": {
+    "id": "root",
+    "label": "커피 추출",
+    "children": [
+      {
+        "id": "n1",
+        "label": "에스프레소",
+        "children": [
+          {
+            "id": "n1a",
+            "label": "9기압",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "n2",
+        "label": "드립",
+        "children": []
+      }
+    ]
+  },
+  "truncated": false
+}

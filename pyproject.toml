@@ -1,0 +1,14 @@
+# uv 워크스페이스 루트 — 설치할 패키지가 아니다.
+# 멤버: packages/core(코어 라이브러리 biznotes-core), apps/api(FastAPI 앱).
+[project]
+name = "biznotes"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+dependencies = []
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/core", "apps/api"]

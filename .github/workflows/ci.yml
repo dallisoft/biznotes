@@ -1,0 +1,130 @@
+# CI — backend·frontend·contracts 잡은 Makefile의 같은 이름 타깃을 그대로 부른다(로컬 `make ci`와 같다).
+# docker 잡은 이미지 3개(api·web·skill-sandbox)를 빌드만 한다(발행하지 않는다).
+# 액션은 커밋 SHA로 고정하고 dependabot(github-actions)이 올린다.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # 호스트 개발 uv와 같은 버전 — uv.lock을 만든 버전이다
+  UV_VERSION: "0.13.6"
+  NODE_VERSION: "22"
+
+jobs:
+  backend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    services:
+      # 포트·계정은 `make up`(infra/compose.dev.yml)과 같다 — 테스트 기본 접속값을 그대로 쓴다
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: biznotes
+          POSTGRES_PASSWORD: biznotes
+          POSTGRES_DB: biznotes
+        ports: ["25433:5432"]
+        options: >-
+          --health-cmd "pg_isready -U biznotes"
+          --health-interval 5s --health-timeout 5s --health-retries 30
+      valkey:
+        image: valkey/valkey:8-alpine
+        ports: ["26379:6379"]
+        options: >-
+          --health-cmd "valkey-cli ping"
+          --health-interval 5s --health-timeout 3s --health-retries 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      # 인제스트·검색 테스트가 fastembed 모델(다국어 MiniLM·BM25, 약 240 MB)을 받는다
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/fastembed
+          key: fastembed-${{ hashFiles('packages/core/biznotes_core/services/ingestion/embedder.py') }}
+      - run: make ci-backend
+        env:
+          FASTEMBED_CACHE_PATH: ${{ runner.temp }}/fastembed
+
+  frontend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # 버전은 package.json packageManager(pnpm@10.14.0)를 읽는다
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: make ci-frontend
+
+  contracts:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # 의존성 설치 전 작업 트리만 본다. 허용 목록은 .gitleaks.toml
+      - name: gitleaks
+        run: >-
+          docker run --rm -v "$PWD:/repo:ro" -w /repo
+          zricethezav/gitleaks:v8.28.0@sha256:cdbb7c955abce02001a9f6c9f602fb195b7fadc1e812065883f695d1eeaba854
+          dir . --config .gitleaks.toml --no-banner --redact
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: ${{ env.UV_VERSION }}
+          enable-cache: true
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: make ci-contracts
+
+  docker:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: api
+            file: apps/api/Dockerfile
+          - image: web
+            file: apps/web/Dockerfile
+          # 빌드 단계에 smoke(python·node·한글 PDF·오피스, 워커 모듈 누수 검사)가 들어 있다
+          - image: skill-sandbox
+            file: packages/core/docker/skill-sandbox.Dockerfile
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+      - uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .
+          file: ${{ matrix.file }}
+          push: false
+          tags: biznotes/${{ matrix.image }}:ci
+          cache-from: type=gha,scope=${{ matrix.image }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}

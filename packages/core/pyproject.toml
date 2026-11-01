@@ -1,0 +1,118 @@
+[project]
+name = "biznotes-core"
+version = "0.1.0"
+description = "biznotes 백엔드 코어 (모델·스키마·서비스·라우터·워커)"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+dependencies = [
+    # 새 HTTP 상태 상수(HTTP_422_UNPROCESSABLE_CONTENT·HTTP_413_CONTENT_TOO_LARGE)는
+    # starlette 0.48부터 있다(#124·#131). 지금은 prometheus-fastapi-instrumentator>=8이
+    # starlette>=1.0을 강제하지만, 메트릭 의존성의 전이 제약에 기대지 않으려고 직접 선언한다.
+    # fastapi 하한은 starlette 0.48과 함께 설치될 수 있는 첫 버전이다.
+    "fastapi>=0.116.2",
+    "starlette>=0.48",
+    "pydantic[email]>=2.10",
+    "pydantic-settings>=2.7",
+    "sqlalchemy[asyncio]>=2.0",
+    "alembic>=1.14",
+    "asyncpg>=0.30",
+    "redis>=5.2",
+    "structlog>=24.4",
+    "httpx>=0.28",
+    # 1.105.1부터 번들 모델 맵이 claude-sonnet-5-5·claude-opus-5-5의
+    # temperature 미지원을 안다. 게이트웨이가 drop_params로 빼려면
+    # 그 정보가 필요하다(#224).
+    "litellm>=1.105.1",
+    "langgraph>=1.2.4",
+    "cryptography>=48.0.1",
+    # 상한이 필요하다 — mcp 2.x는 streamablehttp_client를
+    # streamable_http_client로 개명했고 mcp_client.py가 전자를 쓴다.
+    "mcp>=1.27.2,<2",
+    "jsonschema>=4.26.0",
+    "pyyaml>=6.0.2",
+    "prometheus-fastapi-instrumentator>=8.0.0",
+    "fastembed>=0.8.0",
+    "bcrypt>=5.0.0",
+    "pyjwt>=2.13.0",
+    "celery>=5.4",
+    "tiktoken>=0.8.0",
+]
+
+[project.optional-dependencies]
+# S3 호환 스토리지 백엔드(`storage_backend=s3`, `services/storage_s3.py`). 기본 백엔드는 로컬 파일이다
+s3 = ["minio>=7.2.20"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.25",
+    "pytest-asyncio>=0.25",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.8",
+    "mypy>=1.14",
+    # 파서 단위 테스트(tests/test_parsers.py)용 — 런타임 파서 의존성은 소비 제품이
+    # 선언하므로 코어에서는 테스트 전용이다. docling(OCR)은 무거워 넣지 않는다.
+    "pypdf>=6.13.2",
+    "python-docx>=1.2.0",
+    "openpyxl>=3.1.5",
+    # S3 백엔드 테스트(`storage_s3`, 가짜 클라이언트) — 런타임에서는 `s3` extra다
+    "minio>=7.2.20",
+]
+# 스킬 스크립트 샌드박스 워커 이미지(docker/skill-sandbox.Dockerfile)가 설치하는 전부다.
+# 코어 wheel은 `--no-deps`로 얹는다 — 워커는 `biznotes_core.workers.skill_sandbox`만 불러오고
+# DB·LLM 의존성을 쓰지 않는다(표준 계획 D7·D15). 버전은 uv.lock이 고정한다.
+sandbox = [
+    "celery>=5.4",
+    "redis>=5.2",
+    "structlog>=24.4",
+]
+# 샌드박스 이미지의 **스크립트용 시스템 파이썬**(/usr/local/bin/python3)에 얹는 라이브러리다(#127).
+# 워커 venv(`sandbox` 그룹)와 섞지 않는다. 번들 스크립트가 PDF·Word·PowerPoint·Excel을 만들고 읽게 한다 —
+# PDF 한글은 이미지의 나눔 폰트로 쓴다(docs/SKILL_AUTHORING.md). 버전은 uv.lock이 고정한다 — pypdf·
+# python-docx·openpyxl은 dev 그룹, pillow(reportlab 의존성)는 본 의존성 트리와 같은 락 버전을 쓴다. 보안 패치는
+# `uv lock --upgrade-package pillow`처럼 패키지 단위로 올린다.
+sandbox-scripts = [
+    "reportlab>=5.0.1",
+    "pypdf>=6.13.2",
+    "python-docx>=1.2.0",
+    "python-pptx>=1.0.2",
+    "openpyxl>=3.1.5",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["biznotes_core"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]
+# biznotes 워크스페이스 venv에는 apps/api dev 그룹의 pytest-randomly가 함께 설치된다.
+# 코어 스위트는 순서 섞기를 전제한 적이 없으므로 끈다(플러그인이 없으면 무시된다).
+addopts = "-p no:randomly"
+
+[tool.coverage.run]
+source = ["biznotes_core"]
+branch = false
+
+[tool.coverage.report]
+precision = 1
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+# B008: FastAPI Depends() 기본 인자 패턴은 의도된 사용
+ignore = ["B008"]

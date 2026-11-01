@@ -1,0 +1,41 @@
+# 의존성 갱신. 묶음 PR로 받아 소음을 줄인다.
+# uv PR은 Docker requirements를 다시 만들어야 contracts 잡이 통과한다 — 브랜치에서 `make lock-docker` 뒤 커밋
+# (CONTRIBUTING.md 「의존성」).
+version: 2
+updates:
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      python-minor-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      npm-minor-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: docker
+    directories:
+      - /apps/api
+      - /apps/web
+      - /packages/core/docker
+    schedule:
+      interval: monthly
+    groups:
+      base-images:
+        patterns: ["*"]

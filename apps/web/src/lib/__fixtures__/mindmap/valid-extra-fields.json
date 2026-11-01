@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "root": {
+    "id": "root",
+    "label": "추가 필드",
+    "note": "무시",
+    "children": []
+  },
+  "refs_resolved": 0,
+  "refs_dropped": 0
+}

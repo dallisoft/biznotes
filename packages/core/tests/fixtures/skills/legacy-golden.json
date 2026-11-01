@@ -1,0 +1,45 @@
+{
+  "note": "Baseline of the CURRENT product behaviour, measured by calling the product functions themselves (app.services.skills.service.slugify / _unique_slug and app.services.skills.package.package_hash). The previous revision pinned display_name='영업 요약 도우미' with db_slug='sales-summary-2', a pair the current import path cannot produce, and asserted both literals against this same file. P2 splits the standard skill name from the product display name / DB slug; when it does, these measured values are the regression baseline it must not silently break (HCI-2: no automatic renaming of existing skills).",
+  "slug_derivation": [
+    {
+      "display_name": "영업 요약 도우미",
+      "slug": "skill"
+    },
+    {
+      "display_name": "판매 Summary 2",
+      "slug": "summary-2"
+    },
+    {
+      "display_name": "Sales Summary Helper",
+      "slug": "sales-summary-helper"
+    },
+    {
+      "display_name": "sales-summary",
+      "slug": "sales-summary"
+    },
+    {
+      "display_name": "  Mixed  CASE 2 ",
+      "slug": "mixed-case-2"
+    },
+    {
+      "display_name": "!!!",
+      "slug": "skill"
+    }
+  ],
+  "slug_collision": {
+    "display_name": "Sales Summary Helper",
+    "base_slug": "sales-summary-helper",
+    "expected_slug_when_base_taken": "sales-summary-helper-2",
+    "expected_slug_when_base_and_2_taken": "sales-summary-helper-3"
+  },
+  "manifest_package": {
+    "path": "legacy/manifest-package",
+    "has_manifest": true,
+    "package_hash": "ef51af1046370a57219e7defb25ec9169542e8d3cbda316b5a68debec5ecb6de"
+  },
+  "no_manifest_package": {
+    "path": "legacy/no-manifest-package",
+    "has_manifest": false,
+    "package_hash": "0352fdf3f838e5c684210af6240e4de74c1c8c31dcb87afafd55b78e0873582f"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "root": {
+    "id": "root",
+    "label": "루트",
+    "children": [
+      {
+        "id": "a",
+        "label": ""
+      }
+    ]
+  }
+}

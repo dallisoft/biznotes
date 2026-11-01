@@ -1,0 +1,41 @@
+name: 버그 신고 / Bug report
+description: 동작이 기대와 다를 때 / Something does not work as expected
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        보안 취약점은 여기에 쓰지 말고 [SECURITY.md](../blob/main/SECURITY.md)를 따라 비공개로 알려 주세요.
+        Please report security vulnerabilities privately as described in SECURITY.md, not here.
+  - type: textarea
+    id: what
+    attributes:
+      label: 무슨 일이 있었나 / What happened
+      description: 기대한 동작과 실제 동작 / Expected vs. actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 재현 방법 / Steps to reproduce
+      placeholder: |
+        1. make up && make seed
+        2. ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 버전·커밋 / Version or commit
+      placeholder: v0.1.0 또는 git rev-parse --short HEAD
+  - type: textarea
+    id: env
+    attributes:
+      label: 환경 / Environment
+      description: OS, Docker 버전, STORAGE_BACKEND, 사용한 LLM 프로바이더 등 / OS, Docker version, storage backend, LLM provider
+  - type: textarea
+    id: logs
+    attributes:
+      label: 로그 / Logs
+      description: "`make logs s=api` 또는 `s=worker` 출력. 비밀 값은 지워 주세요 / Redact secrets"
+      render: text

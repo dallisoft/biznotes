@@ -1,0 +1,131 @@
+[project]
+name = "biznotes-api"
+version = "0.1.0"
+description = "biznotes backend API (FastAPI)"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+dependencies = [
+    # 코어는 같은 저장소의 uv 워크스페이스 멤버(packages/core)다. 이미지에서 STORAGE_BACKEND=s3도
+    # 쓸 수 있게 S3 백엔드(minio 클라이언트)를 함께 싣는다
+    "biznotes-core[s3]",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.34",
+    "sqlalchemy[asyncio]>=2.0",
+    "asyncpg>=0.30",
+    "alembic>=1.14",
+    "pydantic>=2.10",
+    "pydantic-settings>=2.7",
+    "redis>=5.2",
+    "celery>=5.4",
+    "structlog>=24.4",
+    "greenlet>=3.1",
+    "pyjwt>=2.13.0",
+    "bcrypt>=5.0.0",
+    "email-validator>=2.3.0",
+    "fastembed>=0.8.0",
+    "trafilatura>=2.1.0",
+    "pypdf>=6.13.2",
+    "python-docx>=1.2.0",
+    "python-pptx>=1.0.2",
+    "openpyxl>=3.1.5",
+    "tiktoken>=0.13.0",
+    "python-multipart>=0.0.32",
+    "litellm>=1.105.1",
+    "cryptography>=48.0.1",
+    "langgraph>=1.2.4",
+    # 상한이 필요하다 — mcp 2.x는 streamablehttp_client를 streamable_http_client로
+    # 개명했고 services/agents/mcp_client.py가 전자를 쓴다. 지금까지는 lock이
+    # 1.x를 붙들어 가려져 있었다(sl-agents는 이미 상한을 뒀다).
+    "mcp>=1.27.2,<2",
+    "jsonschema>=4.26.0",
+    "pyyaml>=6.0.2",
+    "prometheus-fastapi-instrumentator>=8.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "pytest-asyncio>=0.25",
+    "httpx>=0.28",
+    "aiosqlite>=0.20",
+    "ruff>=0.9",
+    "mypy>=1.14",
+    "pytest-cov>=7.1.0",
+    "pytest-randomly>=3.15.0",
+    "pytest-xdist>=3.8.0",
+    # editable 설치의 import hook 런타임(아래 [tool.hatch.build] dev-mode-exact) — 개발 환경 전용
+    "editables>=0.5",
+]
+
+[tool.uv.sources]
+biznotes-core = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.hatch.build]
+# editable 설치가 apps/api 디렉터리 전체가 아니라 `app` 패키지만 노출하게 한다.
+# 워크스페이스 venv를 코어와 함께 쓰므로, 디렉터리째 경로에 오르면 api의 `tests`·`scripts`가
+# 코어 테스트의 같은 이름(네임스페이스 패키지)을 가린다. api 자신의 테스트·스크립트는 cwd로 해석된다.
+dev-mode-exact = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+# B008: FastAPI Depends() 기본 인자 패턴은 의도된 사용
+ignore = ["B008"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+testpaths = ["tests"]
+
+# 커버리지 ratchet 게이트 (리팩토링 계획 R0-1): `pytest --cov` 실행 시에만 적용.
+# fail_under는 "하향 금지" 베이스라인 — 커버리지가 이 값 밑으로 내려가면 CI 실패.
+# 상향은 자유(값을 올려 잠금), 하향 조정은 인간 승인 필요.
+[tool.coverage.run]
+# 코어 분리 후에도 래칫이 유효하려면 biznotes_core를 함께 집계해야 한다.
+# app만 집계하면 코어로 옮긴 코드가 측정에서 빠져 커버리지가 공짜로 올라간다.
+source = ["app", "biznotes_core"]
+branch = false
+# SQLAlchemy async는 greenlet으로 동기 코드를 돈다. Python 3.12의 추적 훅(ctrace)은 greenlet 안의
+# 실행을 이 설정 없이는 놓친다(3.14의 sys.monitoring은 저절로 잡는다) — 측정 범위는 같다
+concurrency = ["thread", "greenlet"]
+# 제품 프로세스(api·worker-*)가 실행할 수 없는 코어 v0.10.6 모듈 7개만 측정에서 뺀다.
+# 측정 범위 축소 = ratchet 예외, 2026-10-04 인간 승인(HCI-P1-1, `reports/human-decisions-phase1.md`).
+# fail_under는 그대로 둔다. 여기 없는 모듈을 추가로 omit하지 않는다.
+omit = [
+    # 샌드박스 컨테이너 전용 — 별도 샌드박스 워커 이미지 안에서만 실행된다.
+    "*/biznotes_core/workers/skill_sandbox/app.py",
+    "*/biznotes_core/workers/skill_sandbox/job.py",
+    "*/biznotes_core/workers/skill_sandbox/launcher.py",
+    "*/biznotes_core/workers/skill_sandbox/runner.py",
+    # HCI-27 미채택에 종속 — 채택(제품이 chat_entry를 임포트) 시 이 omit을 제거한다.
+    "*/biznotes_core/services/agents/chat_entry.py",
+    # CLI 전용 — 코어 명령줄 진입점, 제품 프로세스가 임포트하지 않는다.
+    "*/biznotes_core/services/skills/cli.py",
+    # 평가 도구 전용 — 스킬 평가 하네스, 제품 프로세스가 임포트하지 않는다.
+    "*/biznotes_core/services/skills/evaluation.py",
+]
+
+[tool.coverage.report]
+precision = 1
+skip_covered = true
+# biznotes Phase 2b 실측 75.73%(2026-11-01, `make ci`, 1,581 passed) — 뺀 기능의 코드·테스트를
+# 걷어내고 벡터 DB·오브젝트 스토리지 컨테이너가 없어진 뒤다. 예전에 로컬이 CI보다 높게 나온 원인(컨테이너
+# 스택 실동작)이 사라져 로컬과 CI가 같은 스택(PostgreSQL·Valkey)을 본다. 하한은 그 아래 0.7
+# 여유를 둔 75.0으로 다시 잠근다(이전 70.0). 하향은 인간 승인 필요.
+fail_under = 75.0

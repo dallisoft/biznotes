@@ -1,0 +1,25 @@
+{
+  "acquired_at": "2026-09-10T10:20:30+09:00",
+  "repository": "https://github.com/agentskills/agentskills",
+  "commit": "69ef37e9424c0a7ea9dd2293b559e43ec8176379",
+  "package": "skills-ref",
+  "package_version": "0.1.0",
+  "source_tree": "skills-ref/src/skills_ref",
+  "source_archive_algorithm": "git archive --format=tar HEAD skills-ref | sha256",
+  "source_archive_sha256": "cdded263cda89e0c62e60d00157c4933ae68f85312c1e8d535b997d5e3189b56",
+  "validator_sha256": "b5ee3d8537c83c959c31c2cb080a5227646ede5aea545f1ac835ed3c4645f6c5",
+  "parser_sha256": "9a74c9a90eb217b82bec27570332eab74547acfbee2973c0a8bcd23f6c7bc211",
+  "execution": {
+    "command": "uv run --isolated --with ./skills-ref python <harness importing skills_ref.validate>",
+    "corpus": "golden-corpus.json",
+    "result_field": "oracle_errors",
+    "network_required_at_test_time": false
+  },
+  "vendored_source": {
+    "dir": "oracle-src/",
+    "parser": "oracle-src/parser.py",
+    "validator": "oracle-src/validator.py",
+    "license": "oracle-src/LICENSE",
+    "policy": "Byte-for-byte copies of the pinned oracle sources, kept solely so test_pinned_oracle_source_matches_manifest_hashes can verify parser_sha256 and validator_sha256 against real bytes offline. Never imported or executed by this project; excluded from ruff so linting cannot alter the hashed bytes."
+  }
+}

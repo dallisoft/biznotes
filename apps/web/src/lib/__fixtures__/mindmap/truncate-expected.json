@@ -1,0 +1,1083 @@
+{
+  "root": {
+    "id": "t",
+    "label": "절단",
+    "children": [
+      {
+        "id": "c0",
+        "label": "가지 0",
+        "children": [
+          {
+            "id": "c0-0",
+            "label": "잎 0-0",
+            "children": [
+              {
+                "id": "c0-0-k",
+                "label": "손자 0-0",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-1",
+            "label": "잎 0-1",
+            "children": [
+              {
+                "id": "c0-1-k",
+                "label": "손자 0-1",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-2",
+            "label": "잎 0-2",
+            "children": [
+              {
+                "id": "c0-2-k",
+                "label": "손자 0-2",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-3",
+            "label": "잎 0-3",
+            "children": [
+              {
+                "id": "c0-3-k",
+                "label": "손자 0-3",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-4",
+            "label": "잎 0-4",
+            "children": [
+              {
+                "id": "c0-4-k",
+                "label": "손자 0-4",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-5",
+            "label": "잎 0-5",
+            "children": [
+              {
+                "id": "c0-5-k",
+                "label": "손자 0-5",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-6",
+            "label": "잎 0-6",
+            "children": [
+              {
+                "id": "c0-6-k",
+                "label": "손자 0-6",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-7",
+            "label": "잎 0-7",
+            "children": [
+              {
+                "id": "c0-7-k",
+                "label": "손자 0-7",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-8",
+            "label": "잎 0-8",
+            "children": [
+              {
+                "id": "c0-8-k",
+                "label": "손자 0-8",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-9",
+            "label": "잎 0-9",
+            "children": [
+              {
+                "id": "c0-9-k",
+                "label": "손자 0-9",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-10",
+            "label": "잎 0-10",
+            "children": [
+              {
+                "id": "c0-10-k",
+                "label": "손자 0-10",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c0-11",
+            "label": "잎 0-11",
+            "children": [
+              {
+                "id": "c0-11-k",
+                "label": "손자 0-11",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "c1",
+        "label": "가지 1",
+        "children": [
+          {
+            "id": "c1-0",
+            "label": "잎 1-0",
+            "children": [
+              {
+                "id": "c1-0-k",
+                "label": "손자 1-0",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-1",
+            "label": "잎 1-1",
+            "children": [
+              {
+                "id": "c1-1-k",
+                "label": "손자 1-1",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-2",
+            "label": "잎 1-2",
+            "children": [
+              {
+                "id": "c1-2-k",
+                "label": "손자 1-2",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-3",
+            "label": "잎 1-3",
+            "children": [
+              {
+                "id": "c1-3-k",
+                "label": "손자 1-3",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-4",
+            "label": "잎 1-4",
+            "children": [
+              {
+                "id": "c1-4-k",
+                "label": "손자 1-4",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-5",
+            "label": "잎 1-5",
+            "children": [
+              {
+                "id": "c1-5-k",
+                "label": "손자 1-5",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-6",
+            "label": "잎 1-6",
+            "children": [
+              {
+                "id": "c1-6-k",
+                "label": "손자 1-6",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-7",
+            "label": "잎 1-7",
+            "children": [
+              {
+                "id": "c1-7-k",
+                "label": "손자 1-7",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-8",
+            "label": "잎 1-8",
+            "children": [
+              {
+                "id": "c1-8-k",
+                "label": "손자 1-8",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-9",
+            "label": "잎 1-9",
+            "children": [
+              {
+                "id": "c1-9-k",
+                "label": "손자 1-9",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-10",
+            "label": "잎 1-10",
+            "children": [
+              {
+                "id": "c1-10-k",
+                "label": "손자 1-10",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c1-11",
+            "label": "잎 1-11",
+            "children": [
+              {
+                "id": "c1-11-k",
+                "label": "손자 1-11",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "c2",
+        "label": "가지 2",
+        "children": [
+          {
+            "id": "c2-0",
+            "label": "잎 2-0",
+            "children": [
+              {
+                "id": "c2-0-k",
+                "label": "손자 2-0",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-1",
+            "label": "잎 2-1",
+            "children": [
+              {
+                "id": "c2-1-k",
+                "label": "손자 2-1",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-2",
+            "label": "잎 2-2",
+            "children": [
+              {
+                "id": "c2-2-k",
+                "label": "손자 2-2",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-3",
+            "label": "잎 2-3",
+            "children": [
+              {
+                "id": "c2-3-k",
+                "label": "손자 2-3",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-4",
+            "label": "잎 2-4",
+            "children": [
+              {
+                "id": "c2-4-k",
+                "label": "손자 2-4",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-5",
+            "label": "잎 2-5",
+            "children": [
+              {
+                "id": "c2-5-k",
+                "label": "손자 2-5",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-6",
+            "label": "잎 2-6",
+            "children": [
+              {
+                "id": "c2-6-k",
+                "label": "손자 2-6",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-7",
+            "label": "잎 2-7",
+            "children": [
+              {
+                "id": "c2-7-k",
+                "label": "손자 2-7",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-8",
+            "label": "잎 2-8",
+            "children": [
+              {
+                "id": "c2-8-k",
+                "label": "손자 2-8",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-9",
+            "label": "잎 2-9",
+            "children": [
+              {
+                "id": "c2-9-k",
+                "label": "손자 2-9",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-10",
+            "label": "잎 2-10",
+            "children": [
+              {
+                "id": "c2-10-k",
+                "label": "손자 2-10",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c2-11",
+            "label": "잎 2-11",
+            "children": [
+              {
+                "id": "c2-11-k",
+                "label": "손자 2-11",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "c3",
+        "label": "가지 3",
+        "children": [
+          {
+            "id": "c3-0",
+            "label": "잎 3-0",
+            "children": [
+              {
+                "id": "c3-0-k",
+                "label": "손자 3-0",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-1",
+            "label": "잎 3-1",
+            "children": [
+              {
+                "id": "c3-1-k",
+                "label": "손자 3-1",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-2",
+            "label": "잎 3-2",
+            "children": [
+              {
+                "id": "c3-2-k",
+                "label": "손자 3-2",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-3",
+            "label": "잎 3-3",
+            "children": [
+              {
+                "id": "c3-3-k",
+                "label": "손자 3-3",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-4",
+            "label": "잎 3-4",
+            "children": [
+              {
+                "id": "c3-4-k",
+                "label": "손자 3-4",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-5",
+            "label": "잎 3-5",
+            "children": [
+              {
+                "id": "c3-5-k",
+                "label": "손자 3-5",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-6",
+            "label": "잎 3-6",
+            "children": [
+              {
+                "id": "c3-6-k",
+                "label": "손자 3-6",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-7",
+            "label": "잎 3-7",
+            "children": [
+              {
+                "id": "c3-7-k",
+                "label": "손자 3-7",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-8",
+            "label": "잎 3-8",
+            "children": [
+              {
+                "id": "c3-8-k",
+                "label": "손자 3-8",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-9",
+            "label": "잎 3-9",
+            "children": [
+              {
+                "id": "c3-9-k",
+                "label": "손자 3-9",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-10",
+            "label": "잎 3-10",
+            "children": [
+              {
+                "id": "c3-10-k",
+                "label": "손자 3-10",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c3-11",
+            "label": "잎 3-11",
+            "children": [
+              {
+                "id": "c3-11-k",
+                "label": "손자 3-11",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "c4",
+        "label": "가지 4",
+        "children": [
+          {
+            "id": "c4-0",
+            "label": "잎 4-0",
+            "children": [
+              {
+                "id": "c4-0-k",
+                "label": "손자 4-0",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-1",
+            "label": "잎 4-1",
+            "children": [
+              {
+                "id": "c4-1-k",
+                "label": "손자 4-1",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-2",
+            "label": "잎 4-2",
+            "children": [
+              {
+                "id": "c4-2-k",
+                "label": "손자 4-2",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-3",
+            "label": "잎 4-3",
+            "children": [
+              {
+                "id": "c4-3-k",
+                "label": "손자 4-3",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-4",
+            "label": "잎 4-4",
+            "children": [
+              {
+                "id": "c4-4-k",
+                "label": "손자 4-4",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-5",
+            "label": "잎 4-5",
+            "children": [
+              {
+                "id": "c4-5-k",
+                "label": "손자 4-5",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-6",
+            "label": "잎 4-6",
+            "children": [
+              {
+                "id": "c4-6-k",
+                "label": "손자 4-6",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-7",
+            "label": "잎 4-7",
+            "children": [
+              {
+                "id": "c4-7-k",
+                "label": "손자 4-7",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-8",
+            "label": "잎 4-8",
+            "children": [
+              {
+                "id": "c4-8-k",
+                "label": "손자 4-8",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-9",
+            "label": "잎 4-9",
+            "children": [
+              {
+                "id": "c4-9-k",
+                "label": "손자 4-9",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-10",
+            "label": "잎 4-10",
+            "children": [
+              {
+                "id": "c4-10-k",
+                "label": "손자 4-10",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c4-11",
+            "label": "잎 4-11",
+            "children": [
+              {
+                "id": "c4-11-k",
+                "label": "손자 4-11",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "c5",
+        "label": "가지 5",
+        "children": [
+          {
+            "id": "c5-0",
+            "label": "잎 5-0",
+            "children": [
+              {
+                "id": "c5-0-k",
+                "label": "손자 5-0",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-1",
+            "label": "잎 5-1",
+            "children": [
+              {
+                "id": "c5-1-k",
+                "label": "손자 5-1",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-2",
+            "label": "잎 5-2",
+            "children": [
+              {
+                "id": "c5-2-k",
+                "label": "손자 5-2",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-3",
+            "label": "잎 5-3",
+            "children": [
+              {
+                "id": "c5-3-k",
+                "label": "손자 5-3",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-4",
+            "label": "잎 5-4",
+            "children": [
+              {
+                "id": "c5-4-k",
+                "label": "손자 5-4",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-5",
+            "label": "잎 5-5",
+            "children": [
+              {
+                "id": "c5-5-k",
+                "label": "손자 5-5",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-6",
+            "label": "잎 5-6",
+            "children": [
+              {
+                "id": "c5-6-k",
+                "label": "손자 5-6",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-7",
+            "label": "잎 5-7",
+            "children": [
+              {
+                "id": "c5-7-k",
+                "label": "손자 5-7",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-8",
+            "label": "잎 5-8",
+            "children": [
+              {
+                "id": "c5-8-k",
+                "label": "손자 5-8",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "c5-9",
+            "label": "잎 5-9",
+            "children": []
+          },
+          {
+            "id": "c5-10",
+            "label": "잎 5-10",
+            "children": []
+          },
+          {
+            "id": "c5-11",
+            "label": "잎 5-11",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c6",
+        "label": "가지 6",
+        "children": [
+          {
+            "id": "c6-0",
+            "label": "잎 6-0",
+            "children": []
+          },
+          {
+            "id": "c6-1",
+            "label": "잎 6-1",
+            "children": []
+          },
+          {
+            "id": "c6-2",
+            "label": "잎 6-2",
+            "children": []
+          },
+          {
+            "id": "c6-3",
+            "label": "잎 6-3",
+            "children": []
+          },
+          {
+            "id": "c6-4",
+            "label": "잎 6-4",
+            "children": []
+          },
+          {
+            "id": "c6-5",
+            "label": "잎 6-5",
+            "children": []
+          },
+          {
+            "id": "c6-6",
+            "label": "잎 6-6",
+            "children": []
+          },
+          {
+            "id": "c6-7",
+            "label": "잎 6-7",
+            "children": []
+          },
+          {
+            "id": "c6-8",
+            "label": "잎 6-8",
+            "children": []
+          },
+          {
+            "id": "c6-9",
+            "label": "잎 6-9",
+            "children": []
+          },
+          {
+            "id": "c6-10",
+            "label": "잎 6-10",
+            "children": []
+          },
+          {
+            "id": "c6-11",
+            "label": "잎 6-11",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c7",
+        "label": "가지 7",
+        "children": [
+          {
+            "id": "c7-0",
+            "label": "잎 7-0",
+            "children": []
+          },
+          {
+            "id": "c7-1",
+            "label": "잎 7-1",
+            "children": []
+          },
+          {
+            "id": "c7-2",
+            "label": "잎 7-2",
+            "children": []
+          },
+          {
+            "id": "c7-3",
+            "label": "잎 7-3",
+            "children": []
+          },
+          {
+            "id": "c7-4",
+            "label": "잎 7-4",
+            "children": []
+          },
+          {
+            "id": "c7-5",
+            "label": "잎 7-5",
+            "children": []
+          },
+          {
+            "id": "c7-6",
+            "label": "잎 7-6",
+            "children": []
+          },
+          {
+            "id": "c7-7",
+            "label": "잎 7-7",
+            "children": []
+          },
+          {
+            "id": "c7-8",
+            "label": "잎 7-8",
+            "children": []
+          },
+          {
+            "id": "c7-9",
+            "label": "잎 7-9",
+            "children": []
+          },
+          {
+            "id": "c7-10",
+            "label": "잎 7-10",
+            "children": []
+          },
+          {
+            "id": "c7-11",
+            "label": "잎 7-11",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c8",
+        "label": "가지 8",
+        "children": [
+          {
+            "id": "c8-0",
+            "label": "잎 8-0",
+            "children": []
+          },
+          {
+            "id": "c8-1",
+            "label": "잎 8-1",
+            "children": []
+          },
+          {
+            "id": "c8-2",
+            "label": "잎 8-2",
+            "children": []
+          },
+          {
+            "id": "c8-3",
+            "label": "잎 8-3",
+            "children": []
+          },
+          {
+            "id": "c8-4",
+            "label": "잎 8-4",
+            "children": []
+          },
+          {
+            "id": "c8-5",
+            "label": "잎 8-5",
+            "children": []
+          },
+          {
+            "id": "c8-6",
+            "label": "잎 8-6",
+            "children": []
+          },
+          {
+            "id": "c8-7",
+            "label": "잎 8-7",
+            "children": []
+          },
+          {
+            "id": "c8-8",
+            "label": "잎 8-8",
+            "children": []
+          },
+          {
+            "id": "c8-9",
+            "label": "잎 8-9",
+            "children": []
+          },
+          {
+            "id": "c8-10",
+            "label": "잎 8-10",
+            "children": []
+          },
+          {
+            "id": "c8-11",
+            "label": "잎 8-11",
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c9",
+        "label": "가지 9",
+        "children": [
+          {
+            "id": "c9-0",
+            "label": "잎 9-0",
+            "children": []
+          },
+          {
+            "id": "c9-1",
+            "label": "잎 9-1",
+            "children": []
+          },
+          {
+            "id": "c9-2",
+            "label": "잎 9-2",
+            "children": []
+          },
+          {
+            "id": "c9-3",
+            "label": "잎 9-3",
+            "children": []
+          },
+          {
+            "id": "c9-4",
+            "label": "잎 9-4",
+            "children": []
+          },
+          {
+            "id": "c9-5",
+            "label": "잎 9-5",
+            "children": []
+          },
+          {
+            "id": "c9-6",
+            "label": "잎 9-6",
+            "children": []
+          },
+          {
+            "id": "c9-7",
+            "label": "잎 9-7",
+            "children": []
+          },
+          {
+            "id": "c9-8",
+            "label": "잎 9-8",
+            "children": []
+          },
+          {
+            "id": "c9-9",
+            "label": "잎 9-9",
+            "children": []
+          },
+          {
+            "id": "c9-10",
+            "label": "잎 9-10",
+            "children": []
+          },
+          {
+            "id": "c9-11",
+            "label": "잎 9-11",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  "truncated": true
+}

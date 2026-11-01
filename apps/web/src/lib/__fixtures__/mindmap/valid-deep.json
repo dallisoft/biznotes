@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "root": {
+    "id": "d0",
+    "label": "깊이 0",
+    "children": [
+      {
+        "id": "d1",
+        "label": "깊이 1",
+        "children": [
+          {
+            "id": "d2",
+            "label": "깊이 2",
+            "children": [
+              {
+                "id": "d3",
+                "label": "깊이 3",
+                "children": [
+                  {
+                    "id": "d4",
+                    "label": "깊이 4"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

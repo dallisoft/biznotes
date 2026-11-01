@@ -1,0 +1,42 @@
+{
+  "citations": [
+    {
+      "chunk_id": "00000000-0000-0000-0000-000000000000",
+      "n": 1,
+      "quote": "에스프레소는 9기압의 압력으로 25~30초간 추출한다.",
+      "source_id": "00000000-0000-0000-0000-000000000000",
+      "source_title": "커피 추출 노트",
+      "verified": true
+    }
+  ],
+  "fallback_used": false,
+  "insufficient_context": false,
+  "message_id": "00000000-0000-0000-0000-000000000000",
+  "model": "Mock",
+  "provenance": {
+    "artifact_name": null,
+    "items": [
+      {
+        "count": null,
+        "kind": "source",
+        "name": null,
+        "server": null,
+        "source_id": "00000000-0000-0000-0000-000000000000",
+        "status": "succeeded",
+        "title": "커피 추출 노트",
+        "tool": null,
+        "version": null
+      }
+    ],
+    "mode": "static",
+    "recorded_at": "2026-01-01T00:00:00Z",
+    "run_id": null,
+    "v": 1
+  },
+  "token_usage": {
+    "completion_tokens": 0,
+    "prompt_tokens": 0,
+    "total_tokens": 0
+  },
+  "type": "done"
+}

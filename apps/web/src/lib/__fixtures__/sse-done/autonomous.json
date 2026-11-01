@@ -1,0 +1,44 @@
+{
+  "autonomous": true,
+  "citations": [],
+  "evidence": [],
+  "fallback_used": false,
+  "message_id": "00000000-0000-0000-0000-000000000000",
+  "model": "Mock",
+  "provenance": {
+    "artifact_name": null,
+    "items": [
+      {
+        "count": null,
+        "kind": "tool",
+        "name": null,
+        "server": null,
+        "source_id": null,
+        "status": "succeeded",
+        "title": null,
+        "tool": "rag_search",
+        "version": null
+      }
+    ],
+    "mode": "autonomous",
+    "recorded_at": "2026-01-01T00:00:00Z",
+    "run_id": null,
+    "v": 1
+  },
+  "token_usage": {
+    "completion_tokens": 0,
+    "prompt_tokens": 0,
+    "total_tokens": 0
+  },
+  "tool_calls": [
+    {
+      "arguments": {
+        "query": "커피 추출 과정을 조사해줘"
+      },
+      "status": "succeeded",
+      "tool": "rag_search",
+      "tool_call_id": "mock-call-1"
+    }
+  ],
+  "type": "done"
+}

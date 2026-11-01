@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "root": {
+    "id": "r",
+    "label": "근거",
+    "children": [
+      {
+        "id": "a",
+        "label": "근거 있음",
+        "source_ref": {
+          "source_id": "11111111-1111-1111-1111-111111111111",
+          "chunk_id": "c1"
+        }
+      },
+      {
+        "id": "b",
+        "label": "잘못된 근거",
+        "source_ref": {
+          "source_id": 42
+        }
+      },
+      {
+        "id": "c",
+        "label": "cite만",
+        "cite": [
+          1,
+          2
+        ]
+      }
+    ]
+  }
+}

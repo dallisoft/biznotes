@@ -1,0 +1,798 @@
+[
+ {
+  "id": "no_heading",
+  "markdown": "첫 문단입니다.\n\n둘째 문단은 조금 더 깁니다.\n셋째 줄.",
+  "max_tokens": 800,
+  "overlap": 100,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "첫 문단입니다.\n\n둘째 문단은 조금 더 깁니다.\n셋째 줄.",
+    "token_count": 32,
+    "meta": {}
+   }
+  ]
+ },
+ {
+  "id": "one_heading",
+  "markdown": "# 제목 하나\n\n본문 첫 줄\n본문 둘째 줄",
+  "max_tokens": 800,
+  "overlap": 100,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "제목 하나\n\n본문 첫 줄\n본문 둘째 줄",
+    "token_count": 22,
+    "meta": {
+     "heading": "제목 하나"
+    }
+   }
+  ]
+ },
+ {
+  "id": "long_section_overlap",
+  "markdown": "## 긴 절\n\n0번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 0. 1번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 1. 2번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 2. 3번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 3. 4번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 4. 5번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 5. 6번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 6. 7번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 7. 8번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 8. 9번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 9. 10번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 10. 11번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 11. 12번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 12. 13번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 13. 14번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 14. 15번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 15. 16번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 16. 17번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 17. 18번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 18. 19번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 19. 20번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 20. 21번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 21. 22번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 22. 23번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 23. 24번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 24. 25번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 25. 26번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 26. 27번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 27. 28번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 28. 29번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 29. 30번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 30. 31번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 31. 32번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 32. 33번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 33. 34번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 34. 35번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 35. 36번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 36. 37번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 37. 38번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 38. 39번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 39.",
+  "max_tokens": 40,
+  "overlap": 10,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "긴 절\n\n0번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 0. 1번째 문장은",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 1,
+    "text": " 0. 1번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 1. 2번째 문장은 �",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 2,
+    "text": "1. 2번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 2. 3번째 문장은 공",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 3,
+    "text": ". 3번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 3. 4번째 문장은 공문",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 4,
+    "text": " 4번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 4. 5번째 문장은 공문서",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 5,
+    "text": "5번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 5. 6번째 문장은 공문서 �",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 6,
+    "text": "번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 6. 7번째 문장은 공문서 표",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 7,
+    "text": "째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 7. 8번째 문장은 공문서 표�",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 8,
+    "text": " 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 8. 9번째 문장은 공문서 표본",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 9,
+    "text": "장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 9. 10번째 문장은 공문서 표본입니다",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 10,
+    "text": "은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 10. 11번째 문장은 공문서 표본입니다.",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 11,
+    "text": " 공문서 표본입니다. The quick brown fox jumps over the lazy dog 11. 12번째 문장은 공문서 표본입니다. The",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 12,
+    "text": "�문서 표본입니다. The quick brown fox jumps over the lazy dog 12. 13번째 문장은 공문서 표본입니다. The quick",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 13,
+    "text": "문서 표본입니다. The quick brown fox jumps over the lazy dog 13. 14번째 문장은 공문서 표본입니다. The quick brown",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 14,
+    "text": "서 표본입니다. The quick brown fox jumps over the lazy dog 14. 15번째 문장은 공문서 표본입니다. The quick brown fox",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 15,
+    "text": " 표본입니다. The quick brown fox jumps over the lazy dog 15. 16번째 문장은 공문서 표본입니다. The quick brown fox jumps",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 16,
+    "text": "��본입니다. The quick brown fox jumps over the lazy dog 16. 17번째 문장은 공문서 표본입니다. The quick brown fox jumps over",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 17,
+    "text": "본입니다. The quick brown fox jumps over the lazy dog 17. 18번째 문장은 공문서 표본입니다. The quick brown fox jumps over the",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 18,
+    "text": "�입니다. The quick brown fox jumps over the lazy dog 18. 19번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 19,
+    "text": "입니다. The quick brown fox jumps over the lazy dog 19. 20번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 20,
+    "text": ". The quick brown fox jumps over the lazy dog 20. 21번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog ",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 21,
+    "text": " The quick brown fox jumps over the lazy dog 21. 22번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 22",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 22,
+    "text": " quick brown fox jumps over the lazy dog 22. 23번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 23.",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 23,
+    "text": " brown fox jumps over the lazy dog 23. 24번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 24. ",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 24,
+    "text": " fox jumps over the lazy dog 24. 25번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 25. 26",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 25,
+    "text": " jumps over the lazy dog 25. 26번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 26. 27번",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 26,
+    "text": " over the lazy dog 26. 27번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 27. 28번째",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 27,
+    "text": " the lazy dog 27. 28번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 28. 29번째 문",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 28,
+    "text": " lazy dog 28. 29번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 29. 30번째 문장",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 29,
+    "text": " dog 29. 30번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 30. 31번째 문장은",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 30,
+    "text": " 30. 31번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 31. 32번째 문장은 �",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 31,
+    "text": "31. 32번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 32. 33번째 문장은 공",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 32,
+    "text": ". 33번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 33. 34번째 문장은 공문",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 33,
+    "text": " 34번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 34. 35번째 문장은 공문서",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 34,
+    "text": "35번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 35. 36번째 문장은 공문서 �",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 35,
+    "text": "번째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 36. 37번째 문장은 공문서 표",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 36,
+    "text": "째 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 37. 38번째 문장은 공문서 표�",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 37,
+    "text": " 문장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 38. 39번째 문장은 공문서 표본",
+    "token_count": 40,
+    "meta": {
+     "heading": "긴 절"
+    }
+   },
+   {
+    "seq": 38,
+    "text": "장은 공문서 표본입니다. The quick brown fox jumps over the lazy dog 39.",
+    "token_count": 24,
+    "meta": {
+     "heading": "긴 절"
+    }
+   }
+  ]
+ },
+ {
+  "id": "crlf",
+  "markdown": "# 머리\r\n\r\n첫 줄\r\n둘째 줄\r\n\r\n## 다음\r\n셋째 줄 내용이 이어진다\r\n",
+  "max_tokens": 12,
+  "overlap": 3,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "머리\n\n첫 줄\n�",
+    "token_count": 11,
+    "meta": {
+     "heading": "머리"
+    }
+   },
+   {
+    "seq": 1,
+    "text": "\n둘째 줄",
+    "token_count": 7,
+    "meta": {
+     "heading": "머리"
+    }
+   },
+   {
+    "seq": 2,
+    "text": "다음\n\n셋째 줄 내용이 이",
+    "token_count": 12,
+    "meta": {
+     "heading": "다음"
+    }
+   },
+   {
+    "seq": 3,
+    "text": "용이 이어진다",
+    "token_count": 6,
+    "meta": {
+     "heading": "다음"
+    }
+   }
+  ]
+ },
+ {
+  "id": "blank_lines",
+  "markdown": "\n\n\n# A\n\n\n\n본문 A\n\n\n   \n# B\n# C\n\n\n본문 C\n\n\n\n\n끝\n\n\n",
+  "max_tokens": 800,
+  "overlap": 100,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "A\n\n본문 A\n\nC\n\n본문 C\n\n\n\n\n끝",
+    "token_count": 17,
+    "meta": {
+     "heading": "A"
+    }
+   }
+  ]
+ },
+ {
+  "id": "korean_split",
+  "markdown": "# 가\n\n가나다라마바사 한글 텍스트 테스트입니다 # 가\n\n가나다라마바사 한글 텍스트 테스트입니다 # 가\n\n가나다라마바사 한글 텍스트 테스트입니다 ",
+  "max_tokens": 7,
+  "overlap": 2,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "가\n\n가나다라�",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 1,
+    "text": "라마바사 한",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 2,
+    "text": "사 한글 텍스트 �",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 3,
+    "text": "스트 테스트입니다 # 가",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 4,
+    "text": " # 가\n\n가나다라",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 5,
+    "text": "다라마바사",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 6,
+    "text": "�사 한글 텍스트",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 7,
+    "text": "��스트 테스트입니다 #",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 8,
+    "text": "입니다 # 가\n\n가나다",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 9,
+    "text": "나다라마바",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 10,
+    "text": "바사 한글 텍",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   },
+   {
+    "seq": 11,
+    "text": " 텍스트 테스트입니다",
+    "token_count": 7,
+    "meta": {
+     "heading": "가"
+    }
+   }
+  ]
+ },
+ {
+  "id": "endoftext",
+  "markdown": "## 특수\n\n앞 <|endoftext|> 뒤 <|fim_prefix|> 끝 ## 특수\n\n앞 <|endoftext|> 뒤 <|fim_prefix|> 끝 ## 특수\n\n앞 <|endoftext|> 뒤 <|fim_prefix|> 끝 ## 특수\n\n앞 <|endoftext|> 뒤 <|fim_prefix|> 끝 ",
+  "max_tokens": 9,
+  "overlap": 2,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "특수\n\n앞 <|endoft",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 1,
+    "text": "endoftext|> 뒤 <|",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 2,
+    "text": "� <|fim_prefix|> �",
+    "token_count": 8,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 3,
+    "text": " 끝 ## 특수\n\n",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 4,
+    "text": "수\n\n앞 <|endoftext|",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 5,
+    "text": "ext|> 뒤 <|fim",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 6,
+    "text": "fim_prefix|> 끝 ##",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 7,
+    "text": "� ## 특수\n\n앞",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 8,
+    "text": "앞 <|endoftext|> �",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 9,
+    "text": "> 뒤 <|fim_prefix|",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 10,
+    "text": "_prefix|> 끝 ## �",
+    "token_count": 8,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 11,
+    "text": " 특수\n\n앞 <|endo",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 12,
+    "text": " <|endoftext|> 뒤",
+    "token_count": 9,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 13,
+    "text": "�� <|fim_prefix|> �",
+    "token_count": 8,
+    "meta": {
+     "heading": "특수"
+    }
+   },
+   {
+    "seq": 14,
+    "text": "> 끝",
+    "token_count": 4,
+    "meta": {
+     "heading": "특수"
+    }
+   }
+  ]
+ },
+ {
+  "id": "merge_sections",
+  "markdown": "## Page 1\n\n짧은 첫 쪽\n\n## Page 2\n\n짧은 둘째 쪽\n\n# 제1조 목적\n\n조문 본문\n\n## 표 1\n\n(구역 0, 문단 3)\n\n| 구분 |  | 값 |\n|---|---|---|\n| a | b | c |",
+  "max_tokens": 30,
+  "overlap": 5,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "Page 1\n\n짧은 첫 쪽\n\nPage 2\n\n짧은 둘째 쪽",
+    "token_count": 27,
+    "meta": {
+     "heading": "Page 1"
+    }
+   },
+   {
+    "seq": 1,
+    "text": "제1조 목적\n\n조문 본문",
+    "token_count": 12,
+    "meta": {
+     "heading": "제1조 목적"
+    }
+   },
+   {
+    "seq": 2,
+    "text": "표 1\n\n(구역 0, 문단 3)\n\n| 구분 |  | 값 |\n|---|---",
+    "token_count": 30,
+    "meta": {
+     "heading": "표 1"
+    }
+   },
+   {
+    "seq": 3,
+    "text": " |\n|---|---|---|\n| a | b | c |",
+    "token_count": 15,
+    "meta": {
+     "heading": "표 1"
+    }
+   }
+  ]
+ },
+ {
+  "id": "single_char_windows",
+  "markdown": "가나다라마바사 한글 텍스트 테스트입니다",
+  "max_tokens": 3,
+  "overlap": 0,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "가나다",
+    "token_count": 3,
+    "meta": {}
+   },
+   {
+    "seq": 1,
+    "text": "라마",
+    "token_count": 3,
+    "meta": {}
+   },
+   {
+    "seq": 2,
+    "text": "바사",
+    "token_count": 3,
+    "meta": {}
+   },
+   {
+    "seq": 3,
+    "text": " 한글 �",
+    "token_count": 3,
+    "meta": {}
+   },
+   {
+    "seq": 4,
+    "text": "��스트 �",
+    "token_count": 3,
+    "meta": {}
+   },
+   {
+    "seq": 5,
+    "text": "��스트입니다",
+    "token_count": 3,
+    "meta": {}
+   }
+  ]
+ },
+ {
+  "id": "replacement_char",
+  "markdown": "가나�다라마바사 한글",
+  "max_tokens": 2,
+  "overlap": 1,
+  "chunks": [
+   {
+    "seq": 0,
+    "text": "가나",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 1,
+    "text": "나�",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 2,
+    "text": "�다",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 3,
+    "text": "다라",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 4,
+    "text": "라�",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 5,
+    "text": "마",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 6,
+    "text": "��",
+    "token_count": 1,
+    "meta": {}
+   },
+   {
+    "seq": 7,
+    "text": "바",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 8,
+    "text": "�사",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 9,
+    "text": "사 한",
+    "token_count": 2,
+    "meta": {}
+   },
+   {
+    "seq": 10,
+    "text": " 한글",
+    "token_count": 2,
+    "meta": {}
+   }
+  ]
+ }
+]

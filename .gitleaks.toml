@@ -1,0 +1,17 @@
+# gitleaks 설정 — 기본 규칙에 테스트 픽스처 허용 목록만 더한다.
+# 로컬: docker run --rm -v "$PWD:/repo:ro" -w /repo zricethezav/gitleaks:v8.28.0 dir . --config .gitleaks.toml
+# CI: .github/workflows/ci.yml contracts 잡
+
+title = "biznotes"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "테스트 코드 — 마스킹·거부 동작을 검증하려고 가짜 비밀 값(sk-test-…, AKIA 예시 키 등)을 일부러 쓴다"
+paths = [
+  '''(^|/)apps/api/tests/''',
+  '''(^|/)packages/core/tests/''',
+  '''(^|/)apps/web/src/.+\.test\.tsx?$''',
+  '''(^|/)apps/web/e2e/''',
+]

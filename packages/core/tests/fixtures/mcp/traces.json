@@ -1,0 +1,87 @@
+{
+  "format": "newline-delimited JSON-RPC payloads before SDK model decoding",
+  "valid": [
+    {
+      "revision": "2024-11-05",
+      "transport": "stdio",
+      "client": [
+        {"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"fixture","version":"1"}}},
+        {"jsonrpc":"2.0","method":"notifications/initialized"},
+        {"jsonrpc":"2.0","id":2,"method":"tools/list"},
+        {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"echo","arguments":{"text":"wire"}}}
+      ],
+      "server": [
+        {"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2024-11-05","capabilities":{"tools":{}},"serverInfo":{"name":"independent-fixture","version":"1"}}},
+        {"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"echo","description":"wire echo","inputSchema":{"type":"object"}}]}},
+        {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"wire"}],"isError":false}}
+      ]
+    },
+    {
+      "revision": "2025-03-26",
+      "transport": "streamable-http",
+      "client": [
+        {"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"fixture","version":"1"}}},
+        {"jsonrpc":"2.0","method":"notifications/initialized"},
+        {"jsonrpc":"2.0","id":2,"method":"tools/list"},
+        {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"echo","arguments":{"text":"wire"}}}
+      ],
+      "server": [
+        {"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2025-03-26","capabilities":{"tools":{}},"serverInfo":{"name":"independent-fixture","version":"1"}}},
+        {"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"echo","description":"wire echo","inputSchema":{"type":"object"}}]}},
+        {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"wire"}],"isError":false}}
+      ]
+    },
+    {
+      "revision": "2025-06-18",
+      "transport": "streamable-http",
+      "client": [
+        {"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"fixture","version":"1"}}},
+        {"jsonrpc":"2.0","method":"notifications/initialized"},
+        {"jsonrpc":"2.0","id":2,"method":"tools/list"},
+        {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"echo","arguments":{"text":"wire"}}}
+      ],
+      "server": [
+        {"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2025-06-18","capabilities":{"tools":{}},"serverInfo":{"name":"independent-fixture","version":"1"}}},
+        {"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"echo","description":"wire echo","inputSchema":{"type":"object"}}]}},
+        {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"wire"}],"isError":false}}
+      ]
+    },
+    {
+      "revision": "2025-11-25",
+      "transport": "streamable-http",
+      "client": [
+        {"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-11-25","capabilities":{},"clientInfo":{"name":"fixture","version":"1"}}},
+        {"jsonrpc":"2.0","method":"notifications/initialized"},
+        {"jsonrpc":"2.0","id":2,"method":"tools/list"},
+        {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"echo","arguments":{"text":"wire"}}}
+      ],
+      "server": [
+        {"jsonrpc":"2.0","id":1,"result":{"protocolVersion":"2025-11-25","capabilities":{"tools":{}},"serverInfo":{"name":"independent-fixture","version":"1"}}},
+        {"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"echo","description":"wire echo","inputSchema":{"type":"object"}}]}},
+        {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"wire"}],"isError":false}}
+      ]
+    },
+    {
+      "revision": "2026-07-28",
+      "transport": "streamable-http",
+      "client": [
+        {"jsonrpc":"2.0","id":1,"method":"server/discover","params":{"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientCapabilities":{},"io.modelcontextprotocol/clientInfo":{"name":"fixture","version":"1"}}}},
+        {"jsonrpc":"2.0","id":2,"method":"tools/list","params":{"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientCapabilities":{},"io.modelcontextprotocol/clientInfo":{"name":"fixture","version":"1"}}}},
+        {"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"echo","arguments":{"text":"wire"},"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientCapabilities":{},"io.modelcontextprotocol/clientInfo":{"name":"fixture","version":"1"}}}}
+      ],
+      "server": [
+        {"jsonrpc":"2.0","id":1,"result":{"supportedVersions":["2026-07-28"],"capabilities":{"tools":{}},"resultType":"complete","cacheScope":"public","ttlMs":0}},
+        {"jsonrpc":"2.0","id":2,"result":{"tools":[{"name":"echo","description":"wire echo","inputSchema":{"type":"object"}}],"resultType":"complete","cacheScope":"public","ttlMs":0}},
+        {"jsonrpc":"2.0","id":3,"result":{"content":[{"type":"text","text":"wire"}],"isError":false,"resultType":"complete"}}
+      ],
+      "note": "The modern revision intentionally has no initialize/initialized handshake; server/discover is the valid lifecycle entry defined by the frozen schema and PLAN section 3. Every request carries the per-request _meta version/capabilities negotiation that RequestMetaObject makes mandatory in this revision; this whole trace is machine-checked against the vendored schemas/2026-07-28.json by test_frozen_traces_conform_to_pinned_schemas."
+    }
+  ],
+  "failure": [
+    {"id":"version-mismatch","transport":"stdio","revisions":["2024-11-05","2025-03-26","2025-06-18","2025-11-25"],"serverProtocolVersion":"2099-01-01","expected":"negotiation-error"},
+    {"id":"timeout","transport":"stdio","revisions":["2024-11-05","2025-03-26","2025-06-18","2025-11-25"],"behavior":"no-response","expected":"no-client-deadline-then-external-cancel-reaps-child","baselineNote":"The v1.27.2 product client has NO deadline of its own (open_session/list_tools/call_tool take no timeout and ClientSession is constructed with defaults). The observed baseline is: the call hangs until an EXTERNAL caller cancels it, and the stdio child is then reaped. A client-side deadline is P3a work, not something P1 observed."},
+    {"id":"unauthorized","transport":"streamable-http","status":401,"expected":"no-era-downgrade"},
+    {"id":"forbidden","transport":"streamable-http","status":403,"expected":"no-era-downgrade"},
+    {"id":"legacy-http-sse","revision":"2024-11-05","transport":"http+sse","wire":{"get":"event: endpoint\\ndata: /messages\\n\\n","post":"newline JSON-RPC response delivered as event: message"}}
+  ]
+}

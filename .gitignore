@@ -1,0 +1,46 @@
+# Node
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+.pnpm-store/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+.omc/
+.omx/
+.omo/
+tmp/
+
+# Build / data
+infra/data/
+# 로컬 스토리지 기본 경로(BIZNOTES_DATA_DIR 기본값 `data`)를 호스트에서 돌렸을 때
+apps/api/data/
+packages/core/data/
+backup/
+
+# Logs
+*.log
+
+examples/
+# Claude Code 로컬 설정
+.claude/settings.local.json

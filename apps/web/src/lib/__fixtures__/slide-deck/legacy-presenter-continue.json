@@ -1,0 +1,27 @@
+{
+  "outline_run_params": {
+    "format": "presenter",
+    "length": "short",
+    "language": "English",
+    "description": "for beginners",
+    "image_count": 0
+  },
+  "saved_outline": {
+    "title": "LLM Wiki",
+    "format": "presenter",
+    "slides": [
+      { "title": "Andrej Karpathy's LLM Wiki", "summary": "Opening" },
+      { "title": "Why knowledge bases decay", "summary": "Maintenance cost" },
+      { "title": "Wrap-up", "summary": "Next steps" }
+    ]
+  },
+  "continue_outline": {
+    "title": "LLM Wiki",
+    "format": "presenter",
+    "slides": [
+      { "title": "Andrej Karpathy's LLM Wiki", "summary": "Opening", "format": "presenter", "language": "English" },
+      { "title": "Why knowledge bases decay", "summary": "Maintenance cost", "format": "presenter", "language": "English" },
+      { "title": "Wrap-up", "summary": "Next steps", "format": "presenter", "language": "English" }
+    ]
+  }
+}

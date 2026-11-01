@@ -1,0 +1,268 @@
+# 공통 정의 — compose.dev.yml(개발) 오버레이와 함께 사용
+# docker compose -f compose.yml -f compose.dev.yml up -d
+# 같은 호스트의 다른 compose 스택과 컨테이너·볼륨·네트워크를 섞지 않도록 프로젝트명을 고정한다.
+name: biznotes
+
+# 모든 컨테이너의 시간대(docs/plans/container-kst-timezone.md). 서비스마다 environment에
+# `<<: *tz-env`로 병합한다 — 새 서비스도 빠뜨리지 않는다.
+# 보간 입력은 CONTAINER_TZ다. 셸의 TZ를 그대로 읽으면 호스트·CI 설정이 섞여 든다.
+x-timezone: &tz-env
+  TZ: ${CONTAINER_TZ:-Asia/Seoul}
+
+services:
+  # 상태 저장소 ①: 앱 데이터 + 청크 벡터(pgvector 확장 — 초기 마이그레이션이 CREATE EXTENSION한다)
+  postgres:
+    image: pgvector/pgvector:pg16
+    # 세션 timezone은 UTC로 고정하고 서버 로그만 KST로 찍는다(D-3). 고정하지 않으면 TZ를 읽은
+    # initdb가 새 볼륨에만 Asia/Seoul을 기록해 환경마다 func.date() 집계가 갈라진다.
+    command: ["postgres", "-c", "timezone=UTC", "-c", "log_timezone=${CONTAINER_TZ:-Asia/Seoul}"]
+    environment:
+      <<: *tz-env
+      POSTGRES_USER: ${POSTGRES_USER:-biznotes}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-biznotes}
+      POSTGRES_DB: ${POSTGRES_DB:-biznotes}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-biznotes} -d ${POSTGRES_DB:-biznotes}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+    networks: [backend]
+
+  # 상태 저장소 ②: 캐시·Celery 브로커·이벤트 pubsub. Redis 프로토콜 호환이라 코드는 redis-py
+  # 그대로 쓴다.
+  valkey:
+    image: valkey/valkey:8-alpine
+    environment:
+      <<: *tz-env
+    volumes:
+      - valkey_data:/data
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+    # skill_isolated에도 붙는다 — 스킬 샌드박스 워커의 브로커다.
+    networks: [backend, skill_isolated]
+
+  searxng:
+    # 날짜 태그로 고정한다(`latest`는 기동마다 다른 판을 받는다). 올릴 때는 settings.yml과 함께 확인한다
+    image: searxng/searxng:2026.8.29-d226b78bc
+    environment:
+      <<: *tz-env
+      SEARXNG_BASE_URL: http://searxng:8080
+      # settings.yml의 server.secret_key를 덮는다. 운영에서는 바꾼다(infra/.env.example)
+      SEARXNG_SECRET: ${SEARXNG_SECRET:-biznotes-dev-searxng-secret}
+    volumes:
+      - searxng_data:/etc/searxng
+      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+    restart: unless-stopped
+    networks: [backend]
+
+  api:
+    image: biznotes/api:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    # 기동 전에 마이그레이션을 끝까지 적용한다(scripts/start.sh, BIZNOTES_AUTO_MIGRATE 기본 켬)
+    command: sh scripts/start.sh uvicorn app.main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - model_cache:/home/appuser/.cache
+      # 로컬 스토리지(소스 원본·파싱 결과·산출물·스킬 패키지). worker와 같은 볼륨이어야 한다
+      - data:/data
+    environment: &api-env
+      # api·worker가 이 앵커를 공유한다.
+      <<: *tz-env
+      APP_ENV: ${APP_ENV:-dev}
+      # api가 기동하며 `alembic upgrade head`를 먼저 돈다(scripts/start.sh). 끄면 `make migrate`로 따로
+      BIZNOTES_AUTO_MIGRATE: ${BIZNOTES_AUTO_MIGRATE:-true}
+      # 사용자에게 보이는 날짜 경계·시각(코어 v0.24.0 #352). 컨테이너 TZ와 별개인 앱 설정이다
+      DISPLAY_TIMEZONE: ${DISPLAY_TIMEZONE:-Asia/Seoul}
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: ${POSTGRES_DB:-biznotes}
+      POSTGRES_USER: ${POSTGRES_USER:-biznotes}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-biznotes}
+      VALKEY_URL: redis://valkey:6379/0
+      # 파일은 기본으로 data 볼륨(/data)에 둔다. S3 호환 서버를 쓰려면 STORAGE_BACKEND=s3와
+      # S3_* 값을 준다(README). 이미지의 BIZNOTES_DATA_DIR은 /data다
+      STORAGE_BACKEND: ${STORAGE_BACKEND:-local}
+      S3_ENDPOINT: ${S3_ENDPOINT:-}
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY:-}
+      S3_SECRET_KEY: ${S3_SECRET_KEY:-}
+      S3_SECURE: ${S3_SECURE:-false}
+      SEARXNG_URL: http://searxng:8080
+      # 에이전트 외부 HTTP는 받아오기 전용(코어 v0.28.0 #395 — GET·HEAD만, 본문·임의 헤더 없음).
+      # api(정의 저장 검증)와 워커(실행)가 같은 값을 받아야 한다(core-v0.28.0-upgrade D4)
+      AGENT_HTTP_EGRESS_MODE: ${AGENT_HTTP_EGRESS_MODE:-fetch_only}
+      # 노트북당 소스 상한(코어 v0.30.0 #445) — 소스가 더 많으면 에이전트가 모든 소스를 결과에 반영하지
+      # 못한다(#287, core-v0.30.0-upgrade D3). 관리자 「사용 제한」 재정의가 우선한다
+      MAX_SOURCES_PER_NOTEBOOK: ${MAX_SOURCES_PER_NOTEBOOK:-500}
+      # 소스 요약 사전 생성·백필(코어 v0.25.0 #378·v0.30.0 #448·#454, #285 — core-v0.30.0-upgrade D5).
+      # 인제스트가 끝나면 요약을 미리 만들고, run 한 번이 새로 만드는 요약은 50개로 묶는다(넘는 소스는
+      # 대체 본문 + 백필 예약). 백필은 하루 $5·2,000개에서 멈춘다
+      SOURCE_DIGEST_ON_INGEST: ${SOURCE_DIGEST_ON_INGEST:-true}
+      SOURCE_DIGEST_RUN_MAX_GENERATE: ${SOURCE_DIGEST_RUN_MAX_GENERATE:-50}
+      SOURCE_DIGEST_BACKFILL_DAILY_COST_USD: ${SOURCE_DIGEST_BACKFILL_DAILY_COST_USD:-5}
+      SOURCE_DIGEST_BACKFILL_DAILY_MAX_SOURCES: ${SOURCE_DIGEST_BACKFILL_DAILY_MAX_SOURCES:-2000}
+      LLM_LOCAL_HOST: ${LLM_LOCAL_HOST:-host.docker.internal}
+      # 임베딩 모델 캐시를 영속 볼륨(model_cache)에 고정
+      HF_HOME: /home/appuser/.cache/huggingface
+      # 기본은 온라인(0). 폐쇄망이면 모델을 볼륨에 미리 받아 두고 1로 둔다.
+      HF_HUB_OFFLINE: ${HF_HUB_OFFLINE:-0}
+      FASTEMBED_CACHE_PATH: /home/appuser/.cache/fastembed
+      SEARCH_PROVIDER: ${SEARCH_PROVIDER:-searxng}
+      TAVILY_API_KEY: ${TAVILY_API_KEY:-}
+      JWT_SECRET: ${JWT_SECRET:-dev-jwt-secret}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-dev-encryption-key-32-bytes-pad!}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:23000}
+      WEB_BASE_URL: ${WEB_BASE_URL:-http://localhost:23000}
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:28000}
+      # API 레이트 리밋 (코드 기본값과 동일)
+      RATE_LIMIT_ENABLED: ${RATE_LIMIT_ENABLED:-true}
+      RATE_LIMIT_CHAT: ${RATE_LIMIT_CHAT:-30}
+      RATE_LIMIT_SOURCE_CREATE: ${RATE_LIMIT_SOURCE_CREATE:-30}
+      RATE_LIMIT_SOURCE_UPLOAD: ${RATE_LIMIT_SOURCE_UPLOAD:-1000}
+      RATE_LIMIT_WEB_SEARCH: ${RATE_LIMIT_WEB_SEARCH:-30}
+      RATE_LIMIT_SEARCH: ${RATE_LIMIT_SEARCH:-120}
+      RATE_LIMIT_SOURCE_CONTENT: ${RATE_LIMIT_SOURCE_CONTENT:-60}
+      RATE_LIMIT_AGENT_RUN: ${RATE_LIMIT_AGENT_RUN:-10}
+      # 스킬 번들 스크립트 실행(biznotes-core 표준 계획 D7). process는 worker-skill-sandbox가
+      # 떠 있을 때만 켠다. 샌드박스는 서명 URL로만 파일을 주고받는다 — 로컬 스토리지면 api의
+      # /internal/storage/<토큰>이고, 이 주소는 샌드박스가 api에 닿는 이름이다(skill_isolated).
+      # s3면 샌드박스가 닿는 S3 `host:port`(예: rustfs:9000)로 바꾸고, 샌드박스의
+      # SKILL_SANDBOX_STORAGE_ORIGINS(예: http://rustfs:9000)도 함께 바꾼다.
+      SKILL_SCRIPT_BACKEND: ${SKILL_SCRIPT_BACKEND:-disabled}
+      SKILL_SCRIPT_STORAGE_ENDPOINT: ${SKILL_SCRIPT_STORAGE_ENDPOINT:-http://api:8000}
+      # 표준 스킬 런타임(standard_agent_v1, #259·#65). 켜면 새 스킬이 표준 형식으로 시작하고 채팅·에이전트
+      # 카탈로그가 열린다. 실행 프로필은 동결할 때 정해지므로 켠 뒤에 동결한 version만 카탈로그에 든다.
+      # api(동결·카탈로그)와 worker(실행)가 같은 값을 받아야 한다 — 앵커에 둔다(DEPLOYMENT §4.10).
+      SKILL_STANDARD_RUNTIME_ENABLED: ${SKILL_STANDARD_RUNTIME_ENABLED:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8000/readyz')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    restart: always
+    # skill_isolated에도 붙는다 — 샌드박스 워커가 서명 URL로 파일을 받고 올리는 곳이다
+    networks: [backend, skill_isolated]
+
+  # 통합 워커 — ingestion·agent 두 큐를 소비하고 beat(-B)를 품는다(정체 소스 재발행·고아 run
+  # 회수·벡터 고아 정리). beat는 하나여야 하므로 이 서비스는 복제본을 하나만 둔다.
+  # 마이그레이션이 끝난 뒤(api healthy) 뜬다.
+  worker:
+    image: biznotes/api:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    command: celery -A app.workers.celery_app worker -Q ingestion,agent -B --schedule=/tmp/celerybeat-schedule -l INFO --concurrency=4
+    volumes:
+      - model_cache:/home/appuser/.cache
+      - data:/data
+    environment: *api-env
+    depends_on:
+      api:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A app.workers.celery_app inspect ping -d celery@$$HOSTNAME --timeout 10"]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 20s
+    restart: always
+    networks: [backend]
+
+  # 스킬 번들 스크립트 샌드박스 전용 워커(biznotes-core 표준 계획 D7·S-HCI-1).
+  # 이미지는 저장소 안의 packages/core/docker/skill-sandbox.Dockerfile로 빌드한다(루트 컨텍스트).
+  # 기동은 `docker compose --profile skill-scripts up -d worker-skill-sandbox`,
+  # 그다음 SKILL_SCRIPT_BACKEND=process로 api·worker를 다시 띄운다.
+  # 운영에서 켤 때는 Valkey ACL로 샌드박스 워커의 큐 접근을 좁힌다.
+  #
+  # 제품 이미지·api-env를 쓰지 않는다 — DB·스토리지·LLM 자격증명이 없어야 한다(코어 가드가
+  # 자격증명 모양의 환경 변수를 보면 기동을 거부한다). 환경은 브로커 URL과 저장소 출처뿐이다.
+  # data 볼륨을 붙이지 않는다 — 파일은 작업마다 발급한 서명 URL(api 내부 엔드포인트)로만 오간다.
+  # celery가 PID 1이어야 하므로 command를 셸로 감싸지 않는다(이미지 CMD를 그대로 쓴다).
+  worker-skill-sandbox:
+    image: biznotes/skill-sandbox:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: packages/core/docker/skill-sandbox.Dockerfile
+    profiles: ["skill-scripts"]
+    # TZ는 코어 가드(_FORBIDDEN_ENV)에 걸리지 않는다. 스크립트 프로세스로 넘기는 것은 코어 몫이다
+    # (biznotes-core#352 — launcher ENV_KEYS).
+    environment:
+      <<: *tz-env
+      SKILL_SANDBOX_BROKER_URL: redis://valkey:6379/0
+      # 받아도 되는 서명 URL의 출처(scheme://host:port) — api가 서명하는 주소와 같은 곳이어야 한다.
+      # 로컬 스토리지는 api, s3는 그 서버(그 서버를 skill_isolated에도 붙인다)
+      SKILL_SANDBOX_STORAGE_ORIGINS: ${SKILL_SANDBOX_STORAGE_ORIGINS:-http://api:8000}
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    pids_limit: 256
+    tmpfs:
+      - /tmp:size=512m,mode=1777
+    # 컨테이너 합계 상한 — RLIMIT_AS는 프로세스 단위라 NPROC만큼 곱해진다. tmpfs도 메모리로 센다
+    mem_limit: 2g
+    memswap_limit: 2g
+    cpus: 1.0
+    depends_on:
+      valkey:
+        condition: service_healthy
+      api:
+        condition: service_healthy
+    restart: always
+    # backend에 붙이지 않는다 — skill_isolated는 internal이라 인터넷·DB에 닿지 않는다.
+    networks: [skill_isolated]
+
+  web:
+    image: biznotes/web:${TAG:-latest}
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:28000}
+    environment:
+      <<: *tz-env
+      API_INTERNAL_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      # localhost는 ::1(IPv6)로 먼저 해석되나 Next 서버는 IPv4만 리슨 → 127.0.0.1 고정
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:3000/api/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    restart: always
+    networks: [backend]
+
+networks:
+  backend:
+  # 스킬 스크립트 샌드박스 워커 전용(표준 계획 D7). 붙는 곳은 valkey(브로커)·api(서명 URL)뿐이다 —
+  # postgres에는 붙이지 않는다(샌드박스 워커에는 DB 자격증명이 없고 필요도 없다).
+  skill_isolated:
+    internal: true
+
+volumes:
+  pgdata:
+  valkey_data:
+  # 로컬 스토리지 루트(api·worker의 /data)
+  data:
+  searxng_data:
+  model_cache:

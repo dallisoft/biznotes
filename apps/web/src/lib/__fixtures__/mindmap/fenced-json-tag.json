@@ -1,0 +1,4 @@
+{
+  "body": "```json\n{\"version\": 1, \"root\": {\"id\": \"root\", \"label\": \"펜스 루트\", \"children\": [{\"id\": \"a\", \"label\": \"가지\"}]}}\n```",
+  "root_label": "펜스 루트"
+}

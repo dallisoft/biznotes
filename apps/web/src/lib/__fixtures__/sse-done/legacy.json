@@ -1,0 +1,35 @@
+{
+  "autonomous": true,
+  "citations": [],
+  "evidence": [
+    {
+      "count": null,
+      "kind": "mcp",
+      "name": null,
+      "server": "archhub",
+      "source_id": null,
+      "status": "succeeded",
+      "title": null,
+      "tool": "find_region",
+      "version": null
+    }
+  ],
+  "fallback_used": false,
+  "message_id": "00000000-0000-0000-0000-000000000000",
+  "model": "Mock",
+  "token_usage": {
+    "completion_tokens": 0,
+    "prompt_tokens": 0,
+    "total_tokens": 0
+  },
+  "tool_calls": [
+    {
+      "arguments": {
+        "query": "지역 정보를 조회해줘"
+      },
+      "status": "succeeded",
+      "tool": "mcp_archhub_find_region"
+    }
+  ],
+  "type": "done"
+}

@@ -1,0 +1,26 @@
+**/node_modules
+**/.next
+**/.venv
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+**/.ruff_cache
+.git
+docs
+infra
+backup
+*.png
+tmp
+# biznotes: 빌드 컨텍스트가 저장소 루트다(api·web·skill-sandbox 이미지).
+# 이미지가 쓰지 않는 테스트·산출물·로컬 설정을 컨텍스트에서 뺀다.
+**/tests
+**/tests_pg
+**/.coverage
+**/coverage
+**/test-results
+**/playwright-report
+**/e2e
+**/*.tsbuildinfo
+.claude
+dist
+skills

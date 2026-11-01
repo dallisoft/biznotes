@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "root": {
+    "id": "root",
+    "label": "  앞뒤 공백\n줄바꿈‮뒤집기 ",
+    "children": [
+      {
+        "id": "x",
+        "label": "</text><script>alert(1)</script>"
+      }
+    ]
+  }
+}

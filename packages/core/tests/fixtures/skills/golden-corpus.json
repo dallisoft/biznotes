@@ -1,0 +1,35 @@
+{
+  "format": "compact frontmatter inputs and results from pinned skills-ref 0.1.0",
+  "oracle_errors": "verbatim output of the pinned oracle (skills-ref 0.1.0 at the pinned commit), reproduced case by case; never a rule invented by this project",
+  "current_product_rejects": "measured behaviour of the CURRENT product path (pkg.unpack_zip -> parse_skill_md -> validate_frontmatter). A case where the oracle rejects and the product does not is the P2 gap, pinned as xfail(strict=True).",
+  "cases": [
+    {"id":"name-1","name":"a","root":"a","description":"d","oracle_errors":[],"current_product_rejects":false},
+    {"id":"name-64","name_repeat":64,"root_repeat":64,"description":"d","oracle_errors":[],"current_product_rejects":false},
+    {"id":"name-65","name_repeat":65,"root_repeat":65,"description":"d","oracle_errors":["Skill name 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa' exceeds 64 character limit (65 chars)"],"current_product_rejects":false},
+    {"id":"description-1","name":"desc-one","root":"desc-one","description":"d","oracle_errors":[],"current_product_rejects":false},
+    {"id":"description-1024","name":"desc-max","root":"desc-max","description_repeat":1024,"oracle_errors":[],"current_product_rejects":false},
+    {"id":"description-1025","name":"desc-over","root":"desc-over","description_repeat":1025,"oracle_errors":["Description exceeds 1024 character limit (1025 chars)"],"current_product_rejects":false},
+    {"id":"leading-hyphen","name":"-tool","root":"-tool","description":"d","oracle_errors":["Skill name cannot start or end with a hyphen"],"current_product_rejects":false},
+    {"id":"trailing-hyphen","name":"tool-","root":"tool-","description":"d","oracle_errors":["Skill name cannot start or end with a hyphen"],"current_product_rejects":false},
+    {"id":"consecutive-hyphen","name":"tool--name","root":"tool--name","description":"d","oracle_errors":["Skill name cannot contain consecutive hyphens"],"current_product_rejects":false},
+    {"id":"unicode-name","name":"도구","root":"도구","description":"설명","oracle_errors":[],"current_product_rejects":false},
+    {"id":"ascii-name","name":"sales-summary","root":"sales-summary","description":"d","oracle_errors":[],"current_product_rejects":false},
+    {"id":"root-mismatch","name":"sales-summary","root":"other-root","description":"d","oracle_errors":["Directory name 'other-root' must match skill name 'sales-summary'"],"current_product_rejects":false},
+    {"id":"compatibility-1","name":"compat-one","root":"compat-one","description":"d","compatibility":"x","oracle_errors":[],"current_product_rejects":false},
+    {"id":"compatibility-500","name":"compat-max","root":"compat-max","description":"d","compatibility_repeat":500,"oracle_errors":[],"current_product_rejects":false},
+    {"id":"compatibility-501","name":"compatibility-over","root":"compatibility-over","description":"d","compatibility_repeat":501,"oracle_errors":["Compatibility exceeds 500 character limit (501 chars)"],"current_product_rejects":false},
+    {"id":"license","name":"licensed","root":"licensed","description":"d","license":"Apache-2.0","oracle_errors":[],"current_product_rejects":false},
+    {"id":"allowed-tools","name":"tool-policy","root":"tool-policy","description":"d","allowed-tools":"Read Grep","oracle_errors":[],"current_product_rejects":false},
+    {"id":"metadata","name":"metadata","root":"metadata","description":"d","metadata":{"author":"fixture","version":"1"},"oracle_errors":[],"current_product_rejects":false},
+    {"id":"unknown-field","name":"unknown","root":"unknown","description":"d","unknown":"preserve-me","oracle_errors":["Unexpected fields in frontmatter: unknown. Only ['allowed-tools', 'compatibility', 'description', 'license', 'metadata', 'name'] are allowed."],"current_product_rejects":false},
+    {"id":"uppercase-name","name":"Sales-Summary","root":"Sales-Summary","description":"d","oracle_errors":["Skill name 'Sales-Summary' must be lowercase"],"current_product_rejects":false},
+    {"id":"underscore-name","name":"sales_summary","root":"sales_summary","description":"d","oracle_errors":["Skill name 'sales_summary' contains invalid characters. Only letters, digits, and hyphens are allowed."],"current_product_rejects":false},
+    {"id":"empty-name","name":"","root":"empty-name","description":"d","oracle_errors":["Field 'name' must be a non-empty string"],"current_product_rejects":true},
+    {"id":"empty-description","name":"empty-description","root":"empty-description","description":"","oracle_errors":["Field 'description' must be a non-empty string"],"current_product_rejects":true},
+    {"id":"compatibility-non-string","name":"compat-type","root":"compat-type","description":"d","compatibility":{"claude":"1"},"oracle_errors":["Field 'compatibility' must be a string"],"current_product_rejects":false}
+  ],
+  "package_cases": [
+    {"id":"zip-path-traversal","entries":["SKILL.md","../outside"],"oracle_scope":"product safety policy","expected":"reject"},
+    {"id":"zip-normalized-root-collision","entries":["root/SKILL.md","root/a/../SKILL.md"],"oracle_scope":"product safety policy","expected":"reject"}
+  ]
+}

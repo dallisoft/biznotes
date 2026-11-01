@@ -1,0 +1,19 @@
+# 이미지 빌드 컨텍스트에서 제외 — docker/*.Dockerfile은 pyproject.toml, uv.lock,
+# biznotes_core/, docker/ 만 COPY한다(시험 이미지는 tests/를 실행 시 마운트한다).
+.git
+.github
+.venv
+.uv-cache
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.coverage
+.omx
+.claude
+dist
+docs
+tests
+**/__pycache__
+**/*.py[cod]
+.DS_Store
+tests_pg
