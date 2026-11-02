@@ -9,7 +9,7 @@ dependencies = [
     # starlette 0.48부터 있다(#124·#131). 지금은 prometheus-fastapi-instrumentator>=8이
     # starlette>=1.0을 강제하지만, 메트릭 의존성의 전이 제약에 기대지 않으려고 직접 선언한다.
     # fastapi 하한은 starlette 0.48과 함께 설치될 수 있는 첫 버전이다.
-    "fastapi>=0.116.2",
+    "fastapi>=0.162.0",
     "starlette>=0.48",
     "pydantic[email]>=2.10",
     "pydantic-settings>=2.7",
