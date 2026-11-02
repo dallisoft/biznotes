@@ -4,7 +4,7 @@
 
 ## 한국어
 
-기여를 환영합니다. 버그는 이슈로, 보안 문제는 [SECURITY.md](SECURITY.md)대로 비공개로 알려 주세요. 큰 변경은 먼저 이슈에서 방향을 맞추면 좋습니다. 코드 규칙은 [AGENTS.md](AGENTS.md), 구조는 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)에 있습니다.
+기여를 환영합니다. 버그와 제안은 이슈로, 보안 문제는 [SECURITY.md](SECURITY.md)대로 비공개로 알려 주세요. 공개 저장소의 PR은 허가받은 협업자만 열 수 있습니다 — 코드로 기여하고 싶다면 먼저 이슈에서 방향을 맞추고 협업자 초대를 요청해 주세요. 코드 규칙은 [AGENTS.md](AGENTS.md), 구조는 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)에 있습니다.
 
 ### 준비
 
@@ -43,13 +43,13 @@ make seed
 - 기능 하나 = 커밋 하나, 커밋마다 `make ci` 초록. 메시지는 `type(scope): 요약` 형식(예: `fix(ingestion): …`).
 - PR 템플릿의 세 칸(요약·테스트·마이그레이션 동반)을 채워 주세요.
 - 기여한 코드는 이 저장소의 라이선스([Apache-2.0](LICENSE))로 배포되는 데 동의한 것으로 봅니다.
-- 공개 저장소 `dallisoft/biznotes`는 유지보수자의 작업 저장소 `main`을 자동으로 따라가는 미러입니다(`.github/workflows/mirror.yml`). PR은 공개 저장소에 열어 주세요 — 유지보수자가 작업 저장소에 옮겨 넣으면 미러에 반영되고, 공개 저장소에서 직접 병합하지는 않습니다.
+- 공개 저장소 `dallisoft/biznotes`는 유지보수자의 작업 저장소 `main`을 자동으로 따라가는 미러입니다(`.github/workflows/mirror.yml`). PR은 허가받은 협업자만 열 수 있고, 유지보수자가 작업 저장소에 옮겨 넣으면 미러에 반영됩니다 — 공개 저장소에서 직접 병합하지는 않습니다.
 
 ---
 
 ## English
 
-Contributions are welcome. Please file bugs as issues and report security problems privately as described in [SECURITY.md](SECURITY.md). For larger changes, agreeing on direction in an issue first helps. Code rules are in [AGENTS.md](AGENTS.md) and the design in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Code comments and most docs are in Korean; issues and pull requests in English are fine.
+Contributions are welcome. Please file bugs and suggestions as issues and report security problems privately as described in [SECURITY.md](SECURITY.md). Pull requests on the public repository can be opened only by invited collaborators — if you want to contribute code, agree on the direction in an issue first and ask to be invited. Code rules are in [AGENTS.md](AGENTS.md) and the design in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Code comments and most docs are in Korean; issues and pull requests in English are fine.
 
 ### Setup
 
@@ -81,4 +81,4 @@ make seed
 - One change per commit, each with `make ci` green. Messages follow `type(scope): summary`.
 - Fill in the three sections of the pull request template (summary, testing, migrations/contracts).
 - By contributing you agree that your contribution is licensed under the repository's license ([Apache-2.0](LICENSE)).
-- The public repository `dallisoft/biznotes` is a mirror that automatically follows `main` of the maintainers' working repository (`.github/workflows/mirror.yml`). Open pull requests on the public repository; maintainers apply them upstream and the mirror picks them up, so they are not merged on the public repository directly.
+- The public repository `dallisoft/biznotes` is a mirror that automatically follows `main` of the maintainers' working repository (`.github/workflows/mirror.yml`). Only invited collaborators can open pull requests there; maintainers apply them upstream and the mirror picks them up, so they are not merged on the public repository directly.

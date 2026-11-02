@@ -440,7 +440,8 @@ biznotes/
 - 공개 저장소를 가리키는 주소(README clone, SECURITY.md·이슈 템플릿의 취약점 신고 링크)와 MCP `_meta` 키 이름공간(`io.github.dallisoft.biznotes/`)을 바꿨다. 외부 PR은 공개 저장소에 받고 유지보수자가 작업 저장소로 옮긴다(CONTRIBUTING).
 - 브랜치 보호: 무료 플랜의 비공개 저장소에는 브랜치 보호가 없어 작업 저장소의 「PR 필수·CI 필수」는 강제되지 않는다(관례로 지킨다. 강제하려면 GitHub Pro). 미러 `main`은 강제 push·삭제만 막는다 — PR·체크를 요구하면 배포 키의 push가 거부된다. Private vulnerability reporting은 미러에서 켠다.
 - PR #13을 병합한 커밋 `ce1f3b9`의 커미터는 GitHub 계정 이메일이다(웹 병합이 계정 이메일을 쓴다). owner가 그대로 미러하기로 했다.
-- 미러에도 `dependabot.yml`이 실려 Dependabot이 미러에서도 PR을 열 수 있다. 의존성 갱신은 작업 저장소의 PR로 받는다.
+- 미러에도 `dependabot.yml`이 실려 Dependabot이 미러에서도 PR을 열 수 있다(첫 동기화 직후 #1·#2). 의존성 갱신은 작업 저장소의 PR로 받는다.
+- 미러의 이슈는 누구나 열고, PR은 협업자만 연다(저장소 설정 `pull_request_creation_policy=collaborators_only`, owner 2026-11-02). CONTRIBUTING(한/영)도 「코드 기여는 이슈에서 방향을 맞춘 뒤 협업자 초대」로 안내한다.
 
 ### Phase 5 — 이후 운영 규칙 (작업 없음)
 
