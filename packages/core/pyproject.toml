@@ -11,7 +11,7 @@ dependencies = [
     # fastapi 하한은 starlette 0.48과 함께 설치될 수 있는 첫 버전이다.
     "fastapi>=0.116.2",
     "starlette>=0.48",
-    "pydantic[email]>=2.10",
+    "pydantic[email]>=2.14.2",
     "pydantic-settings>=2.7",
     "sqlalchemy[asyncio]>=2.0",
     "alembic>=1.14",
