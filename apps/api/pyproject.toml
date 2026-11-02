@@ -9,7 +9,7 @@ dependencies = [
     # 쓸 수 있게 S3 백엔드(minio 클라이언트)를 함께 싣는다
     "biznotes-core[s3]",
     "fastapi>=0.115",
-    "uvicorn[standard]>=0.34",
+    "uvicorn[standard]>=0.54.0",
     "sqlalchemy[asyncio]>=2.0",
     "asyncpg>=0.30",
     "alembic>=1.14",
