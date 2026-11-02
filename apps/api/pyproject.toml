@@ -8,7 +8,7 @@ dependencies = [
     # 코어는 같은 저장소의 uv 워크스페이스 멤버(packages/core)다. 이미지에서 STORAGE_BACKEND=s3도
     # 쓸 수 있게 S3 백엔드(minio 클라이언트)를 함께 싣는다
     "biznotes-core[s3]",
-    "fastapi>=0.115",
+    "fastapi>=0.162.0",
     "uvicorn[standard]>=0.34",
     "sqlalchemy[asyncio]>=2.0",
     "asyncpg>=0.30",
