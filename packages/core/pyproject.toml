@@ -27,7 +27,7 @@ dependencies = [
     "cryptography>=48.0.1",
     # 상한이 필요하다 — mcp 2.x는 streamablehttp_client를
     # streamable_http_client로 개명했고 mcp_client.py가 전자를 쓴다.
-    "mcp>=1.27.2,<2",
+    "mcp>=2.3.0,<3",
     "jsonschema>=4.26.0",
     "pyyaml>=6.0.2",
     "prometheus-fastapi-instrumentator>=8.0.0",
