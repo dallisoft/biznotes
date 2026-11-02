@@ -14,9 +14,9 @@
 #
 # ---- 코어 wheel (packages/core) ----
 # uv는 태그를 고정한다 — 이 버전이 아래 설치 동작을 좌우한다.
-FROM ghcr.io/astral-sh/uv:0.12.17 AS uv
+FROM ghcr.io/astral-sh/uv:0.13.6 AS uv
 
-FROM python:3.12-slim AS core-wheel
+FROM python:3.15-slim AS core-wheel
 COPY --from=uv /uv /usr/local/bin/uv
 WORKDIR /src
 ENV UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never
@@ -29,7 +29,7 @@ COPY packages/core/biznotes_core ./biznotes_core
 RUN uv build --wheel --no-build-isolation --out-dir /wheels
 
 # ---- 런타임 ----
-FROM python:3.12-slim
+FROM python:3.15-slim
 
 COPY --from=uv /uv /usr/local/bin/uv
 

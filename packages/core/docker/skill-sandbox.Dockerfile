@@ -30,8 +30,8 @@
 
 ARG PYTHON_VERSION=3.12
 
-FROM ghcr.io/astral-sh/uv:0.12.17 AS uv
-FROM node:22-slim AS node
+FROM ghcr.io/astral-sh/uv:0.13.6 AS uv
+FROM node:26-slim AS node
 
 FROM python:${PYTHON_VERSION}-slim AS builder
 COPY --from=uv /uv /usr/local/bin/uv

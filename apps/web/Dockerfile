@@ -1,6 +1,6 @@
 # 빌드 컨텍스트 = 모노레포 루트 (pnpm workspace lockfile 사용)
 # docker build -f apps/web/Dockerfile .
-FROM node:22-alpine AS builder
+FROM node:26-alpine AS builder
 
 RUN corepack enable pnpm
 WORKDIR /repo
@@ -17,7 +17,7 @@ ARG NEXT_PUBLIC_API_BASE_URL=http://localhost:28000
 ENV NEXT_PUBLIC_API_BASE_URL=$NEXT_PUBLIC_API_BASE_URL
 RUN pnpm --filter web build
 
-FROM node:22-alpine
+FROM node:26-alpine
 
 # tzdata: Node는 ICU로 TZ(compose·Helm이 주는 Asia/Seoul)를 이미 따르지만, alpine에는 zoneinfo가
 # 없어 셸·헬스체크 같은 libc 경로는 UTC로 남는다(docs/plans/container-kst-timezone.md D-5).
